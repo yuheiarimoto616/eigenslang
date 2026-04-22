@@ -1,0 +1,13 @@
+id,slang_term,context_sentence,neutral_paraphrase,category,source_type,notes
+ex038,fr,That lab was brutal fr.,for real,intensifier,manual_expansion,Abbreviated intensifier
+ex001,cooked,"After missing two deadlines, I am completely cooked in this class.",in serious trouble,academic,demo_seed,High-confidence starter example
+ex042,soft launch,He soft launched the project by posting a vague teaser.,partially revealed,online,manual_expansion,Social media phrase
+ex003,mid,That movie was pretty mid honestly.,mediocre,opinion,demo_seed,Neutral paraphrase is adjectival
+ex031,npc,He just stood there like an NPC during the whole conversation.,passive background character,judgment,manual_expansion,Internet metaphor
+ex059,crashed out,He crashed out after seeing the group project grade.,had an extreme emotional reaction,emotion,manual_expansion,Phrase-level slang
+ex027,shade,She was definitely throwing shade in that interview.,subtle disrespect,social,manual_expansion,Noun usage
+ex054,bffr,"Bffr, nobody believed that excuse.",be serious,judgment,manual_expansion,Abbreviated imperative
+ex043,cheugy,That slogan feels kind of cheugy now.,outdated in an uncool way,style,manual_expansion,Trend-related adjective
+ex052,clocked,I clocked the mistake in the rubric right away.,noticed,observation,manual_expansion,Verb usage
+ex012,no cap,"No cap, that was the hardest exam I have taken.",seriously,intensifier,demo_seed,Discourse marker
+ex050,go off,"When he started talking about music theory, he really went off.",spoke passionately at length,conversation,manual_expansion,Phrase-level slang

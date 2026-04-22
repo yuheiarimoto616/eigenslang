@@ -1,0 +1,61 @@
+id,slang_term,context_sentence,neutral_paraphrase,category,source_type,notes
+ex001,cooked,"After missing two deadlines, I am completely cooked in this class.",in serious trouble,academic,demo_seed,High-confidence starter example
+ex002,ate,She really ate with that presentation today.,did extremely well,performance,demo_seed,Used in a positive evaluative sense
+ex003,mid,That movie was pretty mid honestly.,mediocre,opinion,demo_seed,Neutral paraphrase is adjectival
+ex004,rizz,He has absurd rizz when he talks to strangers.,charisma,dating,demo_seed,Short noun paraphrase
+ex005,delulu,"If you think they will refund all of that, you are delulu.",delusional,attitude,demo_seed,Common clipped form
+ex006,slaps,This playlist slaps from start to finish.,is excellent,opinion,demo_seed,Positive assessment
+ex007,down bad,Ever since the breakup he has been down bad.,emotionally desperate,emotion,demo_seed,Phrase-level slang
+ex008,ghosted,She ghosted me after our second date.,suddenly stopped replying,dating,demo_seed,Action in context
+ex009,flex,He keeps posting his watch just to flex.,show off,status,demo_seed,Verb sense
+ex010,bussin,These tacos are bussin.,very tasty,food,demo_seed,Food-related usage
+ex011,cap,That story about meeting the celebrity is cap.,a lie,truthfulness,demo_seed,Noun usage
+ex012,no cap,"No cap, that was the hardest exam I have taken.",seriously,intensifier,demo_seed,Discourse marker
+ex013,pressed,Why are you so pressed about a small comment?,upset,emotion,demo_seed,Emotion adjective
+ex014,lowkey,I lowkey want to skip the party and stay home.,kind of,hedge,demo_seed,Adverbial hedge
+ex015,highkey,I highkey love this new laptop.,very much,intensifier,demo_seed,Adverbial intensifier
+ex016,ratioed,He got ratioed after that rude reply.,received far more criticism than support,online,demo_seed,Social-media-specific event
+ex017,drip,Her drip at the concert was unreal.,fashionable style,fashion,demo_seed,Noun usage
+ex018,sus,This excuse sounds sus to me.,suspicious,judgment,demo_seed,Adjectival slang
+ex019,bet,"Bet, I will send you the notes tonight.",okay,agreement,demo_seed,Agreement marker
+ex020,fire,That remix is fire.,excellent,opinion,demo_seed,General positive evaluation
+ex021,cringe,That brand response was so cringe.,embarrassing,judgment,manual_expansion,High-confidence adjective usage
+ex022,salty,He is still salty about getting cut from the team.,bitter,emotion,manual_expansion,Emotion adjective
+ex023,based,That was a based take in class today.,admirably bold,judgment,manual_expansion,Positive evaluative slang
+ex024,simp,He turned into a simp the second she texted back.,overly devoted admirer,dating,manual_expansion,Noun usage
+ex025,stan,I still stan that artist after all these years.,strongly support,fandom,manual_expansion,Verb usage
+ex026,tea,Spill the tea about what happened after the meeting.,gossip,social,manual_expansion,Noun usage
+ex027,shade,She was definitely throwing shade in that interview.,subtle disrespect,social,manual_expansion,Noun usage
+ex028,shady,That refund policy feels shady to me.,dishonest,judgment,manual_expansion,Adjective usage
+ex029,finna,I am finna leave once this lecture ends.,about to,temporal,manual_expansion,Future marker
+ex030,deadass,I deadass forgot the assignment was due tonight.,seriously,intensifier,manual_expansion,Adverbial intensifier
+ex031,npc,He just stood there like an NPC during the whole conversation.,passive background character,judgment,manual_expansion,Internet metaphor
+ex032,main character,She walked into the party like the main character.,the center of attention,status,manual_expansion,Phrase-level slang
+ex033,glow up,His glow up over the last year has been unreal.,major improvement in appearance or confidence,appearance,manual_expansion,Noun phrase
+ex034,hits different,Coffee on a rainy morning hits different.,feels especially good,opinion,manual_expansion,Phrase-level slang
+ex035,touch grass,You need to touch grass after posting all day.,go outside and reconnect with real life,online,manual_expansion,Imperative phrase
+ex036,yapping,He kept yapping during the movie.,talking too much,conversation,manual_expansion,Verb form
+ex037,valid,Your reason for dropping the course is valid.,reasonable,judgment,manual_expansion,Positive evaluative adjective
+ex038,fr,That lab was brutal fr.,for real,intensifier,manual_expansion,Abbreviated intensifier
+ex039,af,This room is loud af tonight.,extremely,intensifier,manual_expansion,Suffix-like intensifier
+ex040,rent-free,That awkward moment is living rent-free in my head.,constantly on my mind,cognition,manual_expansion,Fixed expression
+ex041,hard launch,She hard launched her new relationship on Instagram.,publicly revealed,online,manual_expansion,Social media phrase
+ex042,soft launch,He soft launched the project by posting a vague teaser.,partially revealed,online,manual_expansion,Social media phrase
+ex043,cheugy,That slogan feels kind of cheugy now.,outdated in an uncool way,style,manual_expansion,Trend-related adjective
+ex044,ick,The way he chews gives me the ick.,a feeling of sudden disgust,dating,manual_expansion,Noun phrase
+ex045,mogged,He got mogged in every photo from the trip.,looked much worse by comparison,appearance,manual_expansion,Comparative slang
+ex046,locked in,She has been locked in since finals season started.,fully focused,academic,manual_expansion,Phrase-level slang
+ex047,brainrot,My feed is pure exam brainrot now.,obsessive low-value fixation,online,manual_expansion,Noun usage
+ex048,aura,Missing that easy layup cost him aura.,social prestige,status,manual_expansion,Noun usage
+ex049,serve,She served at the showcase last night.,performed stylishly and impressively,performance,manual_expansion,Verb usage
+ex050,go off,"When he started talking about music theory, he really went off.",spoke passionately at length,conversation,manual_expansion,Phrase-level slang
+ex051,snatched,Her eyeliner looked snatched in those photos.,perfectly done,appearance,manual_expansion,Appearance compliment
+ex052,clocked,I clocked the mistake in the rubric right away.,noticed,observation,manual_expansion,Verb usage
+ex053,read,She read him for being rude to the server.,harshly called out,social,manual_expansion,Verb usage
+ex054,bffr,"Bffr, nobody believed that excuse.",be serious,judgment,manual_expansion,Abbreviated imperative
+ex055,let him cook,"Let him cook, his argument is finally getting somewhere.",let him continue,conversation,manual_expansion,Memetic phrase
+ex056,its giving,That outfit is giving early-2000s pop star.,it resembles,style,manual_expansion,Phrase-level comparison
+ex057,ate that,She ate that answer in the interview.,did that extremely well,performance,manual_expansion,Phrase-level positive evaluation
+ex058,stood on business,He stood on business and actually filed the complaint.,followed through firmly,action,manual_expansion,Phrase-level slang
+ex059,crashed out,He crashed out after seeing the group project grade.,had an extreme emotional reaction,emotion,manual_expansion,Phrase-level slang
+ex060,motion,He has motion on campus right now.,social momentum and attention,status,manual_expansion,Noun usage

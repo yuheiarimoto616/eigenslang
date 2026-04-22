@@ -1,0 +1,181 @@
+split,method,id,slang_term,context_sentence,gold_paraphrase,top_predictions
+train,raw,ex013,pressed,Why are you so pressed about a small comment?,upset,very much || extremely || kind of
+train,raw,ex025,stan,I still stan that artist after all these years.,strongly support,very much || extremely || seriously
+train,raw,ex016,ratioed,He got ratioed after that rude reply.,received far more criticism than support,reasonable || very much || extremely
+train,raw,ex033,glow up,His glow up over the last year has been unreal.,major improvement in appearance or confidence,seriously || very much || extremely
+train,raw,ex058,stood on business,He stood on business and actually filed the complaint.,followed through firmly,let him continue || seriously || for real
+train,raw,ex024,simp,He turned into a simp the second she texted back.,overly devoted admirer,kind of || about to || very much
+train,raw,ex047,brainrot,My feed is pure exam brainrot now.,obsessive low-value fixation,constantly on my mind || kind of || seriously
+train,raw,ex053,read,She read him for being rude to the server.,harshly called out,noticed || kind of || very much
+train,raw,ex006,slaps,This playlist slaps from start to finish.,is excellent,kind of || about to || extremely
+train,raw,ex007,down bad,Ever since the breakup he has been down bad.,emotionally desperate,okay || extremely || excellent
+train,raw,ex044,ick,The way he chews gives me the ick.,a feeling of sudden disgust,very much || seriously || for real
+train,raw,ex057,ate that,She ate that answer in the interview.,did that extremely well,very tasty || noticed || did that extremely well
+train,raw,ex022,salty,He is still salty about getting cut from the team.,bitter,upset || bitter || extremely
+train,raw,ex030,deadass,I deadass forgot the assignment was due tonight.,seriously,talking too much || did extremely well || noticed
+train,raw,ex046,locked in,She has been locked in since finals season started.,fully focused,in serious trouble || about to || kind of
+train,raw,ex035,touch grass,You need to touch grass after posting all day.,go outside and reconnect with real life,fully focused || show off || it resembles
+train,raw,ex004,rizz,He has absurd rizz when he talks to strangers.,charisma,very much || extremely || kind of
+train,raw,ex026,tea,Spill the tea about what happened after the meeting.,gossip,kind of || very much || about to
+train,raw,ex021,cringe,That brand response was so cringe.,embarrassing,seriously || very much || kind of
+train,raw,ex014,lowkey,I lowkey want to skip the party and stay home.,kind of,very much || kind of || extremely
+train,raw,ex032,main character,She walked into the party like the main character.,the center of attention,show off || kind of || very much
+train,raw,ex029,finna,I am finna leave once this lecture ends.,about to,very much || kind of || about to
+train,raw,ex037,valid,Your reason for dropping the course is valid.,reasonable,okay || reasonable || kind of
+train,raw,ex040,rent-free,That awkward moment is living rent-free in my head.,constantly on my mind,for real || is excellent || very much
+train,raw,ex034,hits different,Coffee on a rainy morning hits different.,feels especially good,extremely || noticed || it resembles
+train,raw,ex036,yapping,He kept yapping during the movie.,talking too much,kind of || okay || let him continue
+train,raw,ex056,its giving,That outfit is giving early-2000s pop star.,it resembles,okay || seriously || it resembles
+train,raw,ex008,ghosted,She ghosted me after our second date.,suddenly stopped replying,delusional || partially revealed || harshly called out
+train,raw,ex060,motion,He has motion on campus right now.,social momentum and attention,kind of || about to || extremely
+train,raw,ex018,sus,This excuse sounds sus to me.,suspicious,kind of || very much || about to
+train,raw,ex048,aura,Missing that easy layup cost him aura.,social prestige,kind of || extremely || very much
+train,raw,ex019,bet,"Bet, I will send you the notes tonight.",okay,for real || seriously || okay
+train,raw,ex051,snatched,Her eyeliner looked snatched in those photos.,perfectly done,about to || show off || noticed
+train,raw,ex023,based,That was a based take in class today.,admirably bold,kind of || reasonable || very much
+train,raw,ex020,fire,That remix is fire.,excellent,it resembles || kind of || very much
+train,raw,ex055,let him cook,"Let him cook, his argument is finally getting somewhere.",let him continue,let him continue || very tasty || okay
+train,mean_offset,ex013,pressed,Why are you so pressed about a small comment?,upset,very much || extremely || kind of
+train,mean_offset,ex025,stan,I still stan that artist after all these years.,strongly support,very much || extremely || seriously
+train,mean_offset,ex016,ratioed,He got ratioed after that rude reply.,received far more criticism than support,reasonable || very much || extremely
+train,mean_offset,ex033,glow up,His glow up over the last year has been unreal.,major improvement in appearance or confidence,seriously || very much || extremely
+train,mean_offset,ex058,stood on business,He stood on business and actually filed the complaint.,followed through firmly,let him continue || seriously || for real
+train,mean_offset,ex024,simp,He turned into a simp the second she texted back.,overly devoted admirer,kind of || about to || very much
+train,mean_offset,ex047,brainrot,My feed is pure exam brainrot now.,obsessive low-value fixation,constantly on my mind || kind of || seriously
+train,mean_offset,ex053,read,She read him for being rude to the server.,harshly called out,noticed || kind of || very much
+train,mean_offset,ex006,slaps,This playlist slaps from start to finish.,is excellent,kind of || about to || extremely
+train,mean_offset,ex007,down bad,Ever since the breakup he has been down bad.,emotionally desperate,okay || extremely || excellent
+train,mean_offset,ex044,ick,The way he chews gives me the ick.,a feeling of sudden disgust,very much || seriously || for real
+train,mean_offset,ex057,ate that,She ate that answer in the interview.,did that extremely well,very tasty || noticed || did that extremely well
+train,mean_offset,ex022,salty,He is still salty about getting cut from the team.,bitter,upset || bitter || extremely
+train,mean_offset,ex030,deadass,I deadass forgot the assignment was due tonight.,seriously,talking too much || did extremely well || noticed
+train,mean_offset,ex046,locked in,She has been locked in since finals season started.,fully focused,in serious trouble || about to || kind of
+train,mean_offset,ex035,touch grass,You need to touch grass after posting all day.,go outside and reconnect with real life,fully focused || show off || it resembles
+train,mean_offset,ex004,rizz,He has absurd rizz when he talks to strangers.,charisma,very much || extremely || kind of
+train,mean_offset,ex026,tea,Spill the tea about what happened after the meeting.,gossip,kind of || very much || about to
+train,mean_offset,ex021,cringe,That brand response was so cringe.,embarrassing,seriously || very much || kind of
+train,mean_offset,ex014,lowkey,I lowkey want to skip the party and stay home.,kind of,very much || kind of || extremely
+train,mean_offset,ex032,main character,She walked into the party like the main character.,the center of attention,show off || kind of || very much
+train,mean_offset,ex029,finna,I am finna leave once this lecture ends.,about to,very much || kind of || about to
+train,mean_offset,ex037,valid,Your reason for dropping the course is valid.,reasonable,okay || reasonable || kind of
+train,mean_offset,ex040,rent-free,That awkward moment is living rent-free in my head.,constantly on my mind,for real || is excellent || very much
+train,mean_offset,ex034,hits different,Coffee on a rainy morning hits different.,feels especially good,extremely || noticed || it resembles
+train,mean_offset,ex036,yapping,He kept yapping during the movie.,talking too much,kind of || okay || let him continue
+train,mean_offset,ex056,its giving,That outfit is giving early-2000s pop star.,it resembles,okay || seriously || it resembles
+train,mean_offset,ex008,ghosted,She ghosted me after our second date.,suddenly stopped replying,delusional || partially revealed || harshly called out
+train,mean_offset,ex060,motion,He has motion on campus right now.,social momentum and attention,kind of || about to || extremely
+train,mean_offset,ex018,sus,This excuse sounds sus to me.,suspicious,kind of || very much || about to
+train,mean_offset,ex048,aura,Missing that easy layup cost him aura.,social prestige,kind of || extremely || very much
+train,mean_offset,ex019,bet,"Bet, I will send you the notes tonight.",okay,for real || seriously || okay
+train,mean_offset,ex051,snatched,Her eyeliner looked snatched in those photos.,perfectly done,about to || show off || noticed
+train,mean_offset,ex023,based,That was a based take in class today.,admirably bold,kind of || reasonable || very much
+train,mean_offset,ex020,fire,That remix is fire.,excellent,it resembles || kind of || very much
+train,mean_offset,ex055,let him cook,"Let him cook, his argument is finally getting somewhere.",let him continue,let him continue || very tasty || okay
+train,eigenslang_pca,ex013,pressed,Why are you so pressed about a small comment?,upset,very much || extremely || seriously
+train,eigenslang_pca,ex025,stan,I still stan that artist after all these years.,strongly support,very much || kind of || for real
+train,eigenslang_pca,ex016,ratioed,He got ratioed after that rude reply.,received far more criticism than support,very much || reasonable || talking too much
+train,eigenslang_pca,ex033,glow up,His glow up over the last year has been unreal.,major improvement in appearance or confidence,the center of attention || charisma || seriously
+train,eigenslang_pca,ex058,stood on business,He stood on business and actually filed the complaint.,followed through firmly,for real || charisma || upset
+train,eigenslang_pca,ex024,simp,He turned into a simp the second she texted back.,overly devoted admirer,kind of || about to || very much
+train,eigenslang_pca,ex047,brainrot,My feed is pure exam brainrot now.,obsessive low-value fixation,constantly on my mind || seriously || kind of
+train,eigenslang_pca,ex053,read,She read him for being rude to the server.,harshly called out,kind of || noticed || charisma
+train,eigenslang_pca,ex006,slaps,This playlist slaps from start to finish.,is excellent,kind of || seriously || about to
+train,eigenslang_pca,ex007,down bad,Ever since the breakup he has been down bad.,emotionally desperate,very much || kind of || okay
+train,eigenslang_pca,ex044,ick,The way he chews gives me the ick.,a feeling of sudden disgust,for real || very much || upset
+train,eigenslang_pca,ex057,ate that,She ate that answer in the interview.,did that extremely well,very tasty || noticed || it resembles
+train,eigenslang_pca,ex022,salty,He is still salty about getting cut from the team.,bitter,bitter || upset || extremely
+train,eigenslang_pca,ex030,deadass,I deadass forgot the assignment was due tonight.,seriously,talking too much || noticed || did extremely well
+train,eigenslang_pca,ex046,locked in,She has been locked in since finals season started.,fully focused,kind of || in serious trouble || show off
+train,eigenslang_pca,ex035,touch grass,You need to touch grass after posting all day.,go outside and reconnect with real life,go outside and reconnect with real life || show off || fully focused
+train,eigenslang_pca,ex004,rizz,He has absurd rizz when he talks to strangers.,charisma,kind of || very much || seriously
+train,eigenslang_pca,ex026,tea,Spill the tea about what happened after the meeting.,gossip,kind of || for real || seriously
+train,eigenslang_pca,ex021,cringe,That brand response was so cringe.,embarrassing,seriously || upset || very much
+train,eigenslang_pca,ex014,lowkey,I lowkey want to skip the party and stay home.,kind of,kind of || very much || extremely
+train,eigenslang_pca,ex032,main character,She walked into the party like the main character.,the center of attention,show off || charisma || kind of
+train,eigenslang_pca,ex029,finna,I am finna leave once this lecture ends.,about to,very much || kind of || extremely
+train,eigenslang_pca,ex037,valid,Your reason for dropping the course is valid.,reasonable,kind of || reasonable || okay
+train,eigenslang_pca,ex040,rent-free,That awkward moment is living rent-free in my head.,constantly on my mind,for real || very much || go outside and reconnect with real life
+train,eigenslang_pca,ex034,hits different,Coffee on a rainy morning hits different.,feels especially good,extremely || noticed || it resembles
+train,eigenslang_pca,ex036,yapping,He kept yapping during the movie.,talking too much,kind of || let him continue || about to
+train,eigenslang_pca,ex056,its giving,That outfit is giving early-2000s pop star.,it resembles,seriously || okay || it resembles
+train,eigenslang_pca,ex008,ghosted,She ghosted me after our second date.,suddenly stopped replying,delusional || had an extreme emotional reaction || partially revealed
+train,eigenslang_pca,ex060,motion,He has motion on campus right now.,social momentum and attention,kind of || about to || show off
+train,eigenslang_pca,ex018,sus,This excuse sounds sus to me.,suspicious,kind of || very much || about to
+train,eigenslang_pca,ex048,aura,Missing that easy layup cost him aura.,social prestige,kind of || very much || for real
+train,eigenslang_pca,ex019,bet,"Bet, I will send you the notes tonight.",okay,for real || seriously || be serious
+train,eigenslang_pca,ex051,snatched,Her eyeliner looked snatched in those photos.,perfectly done,about to || show off || suspicious
+train,eigenslang_pca,ex023,based,That was a based take in class today.,admirably bold,kind of || for real || reasonable
+train,eigenslang_pca,ex020,fire,That remix is fire.,excellent,it resembles || kind of || very much
+train,eigenslang_pca,ex055,let him cook,"Let him cook, his argument is finally getting somewhere.",let him continue,let him continue || very tasty || show off
+validation,raw,ex038,fr,That lab was brutal fr.,for real,very much || kind of || seriously
+validation,raw,ex001,cooked,"After missing two deadlines, I am completely cooked in this class.",in serious trouble,very much || kind of || extremely
+validation,raw,ex042,soft launch,He soft launched the project by posting a vague teaser.,partially revealed,extremely || seriously || fully focused
+validation,raw,ex003,mid,That movie was pretty mid honestly.,mediocre,extremely || did extremely well || very much
+validation,raw,ex031,npc,He just stood there like an NPC during the whole conversation.,passive background character,kind of || very much || noticed
+validation,raw,ex059,crashed out,He crashed out after seeing the group project grade.,had an extreme emotional reaction,in serious trouble || let him continue || okay
+validation,raw,ex027,shade,She was definitely throwing shade in that interview.,subtle disrespect,kind of || about to || very much
+validation,raw,ex054,bffr,"Bffr, nobody believed that excuse.",be serious,for real || okay || very much
+validation,raw,ex043,cheugy,That slogan feels kind of cheugy now.,outdated in an uncool way,kind of || very much || suspicious
+validation,raw,ex052,clocked,I clocked the mistake in the rubric right away.,noticed,perfectly done || followed through firmly || show off
+validation,raw,ex012,no cap,"No cap, that was the hardest exam I have taken.",seriously,for real || extremely || seriously
+validation,raw,ex050,go off,"When he started talking about music theory, he really went off.",spoke passionately at length,okay || seriously || very much
+validation,mean_offset,ex038,fr,That lab was brutal fr.,for real,very much || kind of || seriously
+validation,mean_offset,ex001,cooked,"After missing two deadlines, I am completely cooked in this class.",in serious trouble,very much || kind of || extremely
+validation,mean_offset,ex042,soft launch,He soft launched the project by posting a vague teaser.,partially revealed,extremely || seriously || fully focused
+validation,mean_offset,ex003,mid,That movie was pretty mid honestly.,mediocre,extremely || did extremely well || very much
+validation,mean_offset,ex031,npc,He just stood there like an NPC during the whole conversation.,passive background character,kind of || very much || noticed
+validation,mean_offset,ex059,crashed out,He crashed out after seeing the group project grade.,had an extreme emotional reaction,in serious trouble || let him continue || okay
+validation,mean_offset,ex027,shade,She was definitely throwing shade in that interview.,subtle disrespect,kind of || about to || very much
+validation,mean_offset,ex054,bffr,"Bffr, nobody believed that excuse.",be serious,for real || okay || very much
+validation,mean_offset,ex043,cheugy,That slogan feels kind of cheugy now.,outdated in an uncool way,kind of || very much || suspicious
+validation,mean_offset,ex052,clocked,I clocked the mistake in the rubric right away.,noticed,perfectly done || followed through firmly || show off
+validation,mean_offset,ex012,no cap,"No cap, that was the hardest exam I have taken.",seriously,for real || extremely || seriously
+validation,mean_offset,ex050,go off,"When he started talking about music theory, he really went off.",spoke passionately at length,okay || seriously || very much
+validation,eigenslang_pca,ex038,fr,That lab was brutal fr.,for real,for real || kind of || very much
+validation,eigenslang_pca,ex001,cooked,"After missing two deadlines, I am completely cooked in this class.",in serious trouble,kind of || very much || extremely
+validation,eigenslang_pca,ex042,soft launch,He soft launched the project by posting a vague teaser.,partially revealed,extremely || seriously || for real
+validation,eigenslang_pca,ex003,mid,That movie was pretty mid honestly.,mediocre,extremely || very much || seriously
+validation,eigenslang_pca,ex031,npc,He just stood there like an NPC during the whole conversation.,passive background character,kind of || very much || the center of attention
+validation,eigenslang_pca,ex059,crashed out,He crashed out after seeing the group project grade.,had an extreme emotional reaction,in serious trouble || let him continue || upset
+validation,eigenslang_pca,ex027,shade,She was definitely throwing shade in that interview.,subtle disrespect,kind of || about to || very much
+validation,eigenslang_pca,ex054,bffr,"Bffr, nobody believed that excuse.",be serious,for real || okay || be serious
+validation,eigenslang_pca,ex043,cheugy,That slogan feels kind of cheugy now.,outdated in an uncool way,kind of || very much || for real
+validation,eigenslang_pca,ex052,clocked,I clocked the mistake in the rubric right away.,noticed,in serious trouble || show off || perfectly done
+validation,eigenslang_pca,ex012,no cap,"No cap, that was the hardest exam I have taken.",seriously,for real || seriously || be serious
+validation,eigenslang_pca,ex050,go off,"When he started talking about music theory, he really went off.",spoke passionately at length,okay || seriously || talking too much
+test,raw,ex017,drip,Her drip at the concert was unreal.,fashionable style,seriously || very much || extremely
+test,raw,ex028,shady,That refund policy feels shady to me.,dishonest,suspicious || about to || in serious trouble
+test,raw,ex005,delulu,"If you think they will refund all of that, you are delulu.",delusional,in serious trouble || very much || about to
+test,raw,ex045,mogged,He got mogged in every photo from the trip.,looked much worse by comparison,about to || kind of || very much
+test,raw,ex011,cap,That story about meeting the celebrity is cap.,a lie,about to || seriously || noticed
+test,raw,ex010,bussin,These tacos are bussin.,very tasty,seriously || it resembles || very much
+test,raw,ex009,flex,He keeps posting his watch just to flex.,show off,extremely || very much || for real
+test,raw,ex041,hard launch,She hard launched her new relationship on Instagram.,publicly revealed,extremely || charisma || followed through firmly
+test,raw,ex049,serve,She served at the showcase last night.,performed stylishly and impressively,very much || excellent || seriously
+test,raw,ex002,ate,She really ate with that presentation today.,did extremely well,very tasty || very much || extremely
+test,raw,ex039,af,This room is loud af tonight.,extremely,very much || about to || kind of
+test,raw,ex015,highkey,I highkey love this new laptop.,very much,extremely || very much || seriously
+test,mean_offset,ex017,drip,Her drip at the concert was unreal.,fashionable style,seriously || very much || extremely
+test,mean_offset,ex028,shady,That refund policy feels shady to me.,dishonest,suspicious || about to || in serious trouble
+test,mean_offset,ex005,delulu,"If you think they will refund all of that, you are delulu.",delusional,in serious trouble || very much || about to
+test,mean_offset,ex045,mogged,He got mogged in every photo from the trip.,looked much worse by comparison,about to || kind of || very much
+test,mean_offset,ex011,cap,That story about meeting the celebrity is cap.,a lie,about to || seriously || noticed
+test,mean_offset,ex010,bussin,These tacos are bussin.,very tasty,seriously || it resembles || very much
+test,mean_offset,ex009,flex,He keeps posting his watch just to flex.,show off,extremely || very much || for real
+test,mean_offset,ex041,hard launch,She hard launched her new relationship on Instagram.,publicly revealed,extremely || charisma || followed through firmly
+test,mean_offset,ex049,serve,She served at the showcase last night.,performed stylishly and impressively,very much || excellent || seriously
+test,mean_offset,ex002,ate,She really ate with that presentation today.,did extremely well,very tasty || very much || extremely
+test,mean_offset,ex039,af,This room is loud af tonight.,extremely,very much || about to || kind of
+test,mean_offset,ex015,highkey,I highkey love this new laptop.,very much,extremely || very much || seriously
+test,eigenslang_pca,ex017,drip,Her drip at the concert was unreal.,fashionable style,for real || seriously || very much
+test,eigenslang_pca,ex028,shady,That refund policy feels shady to me.,dishonest,suspicious || in serious trouble || kind of
+test,eigenslang_pca,ex005,delulu,"If you think they will refund all of that, you are delulu.",delusional,in serious trouble || very much || okay
+test,eigenslang_pca,ex045,mogged,He got mogged in every photo from the trip.,looked much worse by comparison,kind of || about to || very much
+test,eigenslang_pca,ex011,cap,That story about meeting the celebrity is cap.,a lie,about to || seriously || noticed
+test,eigenslang_pca,ex010,bussin,These tacos are bussin.,very tasty,charisma || for real || seriously
+test,eigenslang_pca,ex009,flex,He keeps posting his watch just to flex.,show off,extremely || for real || very much
+test,eigenslang_pca,ex041,hard launch,She hard launched her new relationship on Instagram.,publicly revealed,social prestige || emotionally desperate || extremely
+test,eigenslang_pca,ex049,serve,She served at the showcase last night.,performed stylishly and impressively,very much || kind of || seriously
+test,eigenslang_pca,ex002,ate,She really ate with that presentation today.,did extremely well,very tasty || very much || noticed
+test,eigenslang_pca,ex039,af,This room is loud af tonight.,extremely,very much || kind of || about to
+test,eigenslang_pca,ex015,highkey,I highkey love this new laptop.,very much,extremely || talking too much || seriously

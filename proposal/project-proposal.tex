@@ -1,0 +1,82 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fullpage}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\setlist[itemize]{leftmargin=*,itemsep=0pt,topsep=2pt}
+\setlist[enumerate]{leftmargin=*,itemsep=0pt,topsep=2pt}
+
+\begin{document}
+
+\begin{center}
+{\large\bfseries Eigenslang: A Geometric Approach to Youth Slang Normalization}\\
+\vspace{0.2em}
+James Wen and Yuhei Arimoto
+\end{center}
+\vspace{-0.5em}
+
+\section*{1. What problem are we focusing on?}
+\qquad Current NLP systems often struggle with youth slang, especially with consistently evolving Gen Z and Gen Alpha slang prevalent on social media.  Common Gen Z expressions such as \textit{mid}, \textit{cooked}, \textit{ate}, or \textit{rizz} are recent, informal, and context-dependent, so standard lexical resources and embeddings often represent them poorly. Despite strategies such as subword tozenization, contextual embeddings, and diverse training dataset, challenges remain due to slang's fluid and rapidly evolving nature (Ishita \& Mamidi, 2025). Furthermore, even when a model has seen the token, it may not distinguish between standard and slang meanings. This is detrimental for tasks such as text understanding, retrieval, sentiment analysis, and chatbot interaction. Moreover, this is an increasingly significant topic as LLMs become mainstream as youth demographics are among the most frequent and active users of AI chatbots (Hicken, 2025). The inability of these systems to accurately parse slang creates a fundamental disconnect in user experience and accessibility.
+
+In recent years, there has been significant leaps in the field of computational linguistics. Specifically, the application of eigenvector analysis has emerged as a powerful tool for uncovering latent semantic structures and providing a more robust interpretation of high dimensional word embeddings. This leads us to the main research question of our project: Does the \emph{Eigenslang} exist? That is, is there a structured transformation from a neutral phrase to its slang counterpart. We call the shared direction, if it exists, the \emph{Eigenslang}. If a slang term and a neutral paraphrase are embedded as vectors, is the difference between them partly shared across many examples? If so, that direction could represent ``slanginess'' and support a lightweight translation or normalization method.
+
+This problem is motivated by prior work showing that slang requires specialized representations. Past research such as \textit{Urban Dictionary Embeddings for Slang NLP Applications} by Wilson et. al. suggests that slang-specific resources help NLP, while \textit{Interpreting Word Embeddings with Eigenvector Analysis} by Shin et. al. suggests that principal directions in embedding space can reveal interpretable structure. Other work on slang extraction, slang generation, Gen Alpha translation, and youth-slang chatbots further motivates this as both a linguistic and ML problem. We also drew inspiration from the theoretical concept and framework of the \textit{"Eigenslur"}, popularized by linguistic influencers like 
+etymologynerd.
+
+\section*{2. What do we plan to do?}
+\qquad We will build a curated dataset of roughly 80--120 recent "Gen Z" slang expressions paired with approximate neutral paraphrases. Each item will contain a slang word or short phrase, a context sentence, and a manually assigned neutral gloss. We will annotate meanings in context rather than isolated words, since many slang terms are polysemous. Examples will be collected from publicly available sources such as social media posts, slang dictionaries, and trend lists, while keeping the dataset small enough for manual cleaning.
+
+We will then represent each pair using existing embedding models. A likely starting point is fastText, as it handles rare and morphologically novel words reasonably well, and we may compare it with a contextual model such as BERT or a sentence-transformer model. For each pair, we compute
+\[
+\mathbf{d}_i = \mathbf{s}_i - \mathbf{n}_i,
+\]
+where $\mathbf{s}_i$ is the slang embedding and $\mathbf{n}_i$ is the embedding of its neutral paraphrase.
+
+Our main method is to apply PCA or SVD to the matrix of difference vectors $\{\mathbf{d}_i\}$. If the leading principal component captures meaningful variance, we interpret it as an \emph{Eigenslang} direction. We will inspect whether it corresponds to shared properties such as informality, exaggeration, or affect.
+
+We will evaluate this idea on a slang normalization task: given a slang expression in context, retrieve its intended neutral paraphrase from a candidate set. Given a slang vector $\mathbf{s}$, we will test whether subtracting the learned direction moves the representation closer to the correct neutral paraphrase:
+\[
+\mathbf{s}' = \mathbf{s} - \alpha \mathbf{e}_1,
+\]
+where $\mathbf{e}_1$ is the leading principal component and $\alpha$ is tuned on held-out data. We will compare this against simple baselines: nearest-neighbor retrieval with the original embeddings and a mean-offset baseline computed from the training pairs. Our main metrics will be Top-1 and Top-3 retrieval accuracy, supplemented by qualitative analysis of success and failure cases. If time permits, we will also try the reverse direction for exploratory slang generation, but this is secondary.
+
+Negative results are possible. In particular, slang may be too heterogeneous to be represented well by a single direction. If that happens, we will analyze whether multiple components help, or whether the main failure mode is context dependence or polysemy.
+
+\section*{3. What will the contribution be?}
+The main contribution will be an empirical test of whether youth slang transformations have low-dimensional structure in embedding space. Concretely, we expect the project to contribute:
+\begin{itemize}
+    \item a curated paired dataset of slang expressions, contexts, and neutral paraphrases;
+    \item an analysis of whether principal directions of slang-neutral difference vectors are interpretable;
+    \item an evaluation of whether the Eigenslang direction improves slang normalization relative to simple baselines;
+    \item a discussion of when this idea works and when it fails.
+\end{itemize}
+
+Even if the method does not work well, that would still be meaningful: it would suggest that slang is too context-specific or semantically diverse to be treated as a single stylistic offset.
+
+\small
+\begin{thebibliography}{9}
+\bibitem{wilson}
+\textit{Urban Dictionary Embeddings for Slang NLP Applications} (Wilson et al., LREC 2020)
+
+\bibitem{abdlrazg}
+\textit{Analyzing Semantic Properties of Word Embeddings Using Eigenvectors} (Shin et al., NIPS IRASL 2018)
+
+\bibitem{topic}
+ \textit{Slang feature extraction by analysing topic change on social media.} (Matsumoto et al., CAAI TIT 2019)
+
+\bibitem{generation}
+\textit{A Computational Framework for Slang Generation} (Sun et al., TACL 2021).
+
+\bibitem{genalpha}
+\textit{The Evolution of Gen Alpha Slang: Linguistic Patterns and AI Translation Challenges} (Ishita \& Mamidi, ACL 2025)
+
+\bibitem{chatbot}
+ \textit{How different generations use AI in 2026.} Hicken, C. (2026, March 27).
+ 
+ https://www.theysaid.io/blog/how-different-generations-use-ai\#tldr 
+\end{thebibliography}
+
+\end{document}

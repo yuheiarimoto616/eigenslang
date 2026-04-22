@@ -1,0 +1,61 @@
+split,method,id,slang_term,context_sentence,gold_paraphrase,top_predictions
+train,raw,ex009,flex,He keeps posting his watch just to flex.,show off,very much || okay || kind of
+train,raw,ex012,no cap,"No cap, that was the hardest exam I have taken.",seriously,seriously || okay || excellent
+train,raw,ex015,highkey,I highkey love this new laptop.,very much,very much || seriously || kind of
+train,raw,ex002,ate,She really ate with that presentation today.,did extremely well,very tasty || very much || seriously
+train,raw,ex004,rizz,He has absurd rizz when he talks to strangers.,charisma,very much || kind of || seriously
+train,raw,ex003,mid,That movie was pretty mid honestly.,mediocre,did extremely well || very much || excellent
+train,raw,ex008,ghosted,She ghosted me after our second date.,suddenly stopped replying,delusional || suspicious || upset
+train,raw,ex011,cap,That story about meeting the celebrity is cap.,a lie,seriously || very much || show off
+train,raw,ex018,sus,This excuse sounds sus to me.,suspicious,kind of || very much || excellent
+train,raw,ex016,ratioed,He got ratioed after that rude reply.,received far more criticism than support,very much || did extremely well || suddenly stopped replying
+train,raw,ex019,bet,"Bet, I will send you the notes tonight.",okay,seriously || okay || kind of
+train,raw,ex020,fire,That remix is fire.,excellent,kind of || very much || seriously
+train,mean_offset,ex009,flex,He keeps posting his watch just to flex.,show off,very much || okay || kind of
+train,mean_offset,ex012,no cap,"No cap, that was the hardest exam I have taken.",seriously,seriously || okay || excellent
+train,mean_offset,ex015,highkey,I highkey love this new laptop.,very much,very much || seriously || kind of
+train,mean_offset,ex002,ate,She really ate with that presentation today.,did extremely well,very tasty || very much || seriously
+train,mean_offset,ex004,rizz,He has absurd rizz when he talks to strangers.,charisma,very much || kind of || seriously
+train,mean_offset,ex003,mid,That movie was pretty mid honestly.,mediocre,did extremely well || very much || excellent
+train,mean_offset,ex008,ghosted,She ghosted me after our second date.,suddenly stopped replying,delusional || suspicious || upset
+train,mean_offset,ex011,cap,That story about meeting the celebrity is cap.,a lie,seriously || very much || show off
+train,mean_offset,ex018,sus,This excuse sounds sus to me.,suspicious,kind of || very much || excellent
+train,mean_offset,ex016,ratioed,He got ratioed after that rude reply.,received far more criticism than support,very much || did extremely well || suddenly stopped replying
+train,mean_offset,ex019,bet,"Bet, I will send you the notes tonight.",okay,seriously || okay || kind of
+train,mean_offset,ex020,fire,That remix is fire.,excellent,kind of || very much || seriously
+train,eigenslang_pca,ex009,flex,He keeps posting his watch just to flex.,show off,a lie || very much || kind of
+train,eigenslang_pca,ex012,no cap,"No cap, that was the hardest exam I have taken.",seriously,seriously || okay || a lie
+train,eigenslang_pca,ex015,highkey,I highkey love this new laptop.,very much,seriously || very much || kind of
+train,eigenslang_pca,ex002,ate,She really ate with that presentation today.,did extremely well,very tasty || a lie || very much
+train,eigenslang_pca,ex004,rizz,He has absurd rizz when he talks to strangers.,charisma,very much || kind of || seriously
+train,eigenslang_pca,ex003,mid,That movie was pretty mid honestly.,mediocre,very much || kind of || excellent
+train,eigenslang_pca,ex008,ghosted,She ghosted me after our second date.,suddenly stopped replying,delusional || a lie || suspicious
+train,eigenslang_pca,ex011,cap,That story about meeting the celebrity is cap.,a lie,seriously || a lie || kind of
+train,eigenslang_pca,ex018,sus,This excuse sounds sus to me.,suspicious,kind of || very much || a lie
+train,eigenslang_pca,ex016,ratioed,He got ratioed after that rude reply.,received far more criticism than support,a lie || very much || delusional
+train,eigenslang_pca,ex019,bet,"Bet, I will send you the notes tonight.",okay,a lie || seriously || kind of
+train,eigenslang_pca,ex020,fire,That remix is fire.,excellent,a lie || suspicious || kind of
+validation,raw,ex007,down bad,Ever since the breakup he has been down bad.,emotionally desperate,okay || excellent || very much
+validation,raw,ex006,slaps,This playlist slaps from start to finish.,is excellent,kind of || seriously || very much
+validation,raw,ex014,lowkey,I lowkey want to skip the party and stay home.,kind of,very much || kind of || seriously
+validation,raw,ex005,delulu,"If you think they will refund all of that, you are delulu.",delusional,in serious trouble || very much || okay
+validation,mean_offset,ex007,down bad,Ever since the breakup he has been down bad.,emotionally desperate,okay || excellent || very much
+validation,mean_offset,ex006,slaps,This playlist slaps from start to finish.,is excellent,kind of || seriously || very much
+validation,mean_offset,ex014,lowkey,I lowkey want to skip the party and stay home.,kind of,very much || kind of || seriously
+validation,mean_offset,ex005,delulu,"If you think they will refund all of that, you are delulu.",delusional,in serious trouble || very much || okay
+validation,eigenslang_pca,ex007,down bad,Ever since the breakup he has been down bad.,emotionally desperate,a lie || kind of || very much
+validation,eigenslang_pca,ex006,slaps,This playlist slaps from start to finish.,is excellent,seriously || kind of || a lie
+validation,eigenslang_pca,ex014,lowkey,I lowkey want to skip the party and stay home.,kind of,kind of || very much || seriously
+validation,eigenslang_pca,ex005,delulu,"If you think they will refund all of that, you are delulu.",delusional,in serious trouble || a lie || delusional
+test,raw,ex010,bussin,These tacos are bussin.,very tasty,seriously || very much || kind of
+test,raw,ex013,pressed,Why are you so pressed about a small comment?,upset,very much || kind of || seriously
+test,raw,ex017,drip,Her drip at the concert was unreal.,fashionable style,seriously || very much || kind of
+test,raw,ex001,cooked,"After missing two deadlines, I am completely cooked in this class.",in serious trouble,very much || kind of || seriously
+test,mean_offset,ex010,bussin,These tacos are bussin.,very tasty,seriously || very much || kind of
+test,mean_offset,ex013,pressed,Why are you so pressed about a small comment?,upset,very much || kind of || seriously
+test,mean_offset,ex017,drip,Her drip at the concert was unreal.,fashionable style,seriously || very much || kind of
+test,mean_offset,ex001,cooked,"After missing two deadlines, I am completely cooked in this class.",in serious trouble,very much || kind of || seriously
+test,eigenslang_pca,ex010,bussin,These tacos are bussin.,very tasty,a lie || seriously || kind of
+test,eigenslang_pca,ex013,pressed,Why are you so pressed about a small comment?,upset,very much || kind of || a lie
+test,eigenslang_pca,ex017,drip,Her drip at the concert was unreal.,fashionable style,seriously || a lie || very tasty
+test,eigenslang_pca,ex001,cooked,"After missing two deadlines, I am completely cooked in this class.",in serious trouble,very much || kind of || a lie

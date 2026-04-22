@@ -1,0 +1,10 @@
+split,method,backend,top_1_accuracy,top_3_accuracy,alpha
+train,raw,sentence-transformers/all-MiniLM-L6-v2,0.0278,0.2222,
+train,mean_offset,sentence-transformers/all-MiniLM-L6-v2,0.0278,0.2222,0.0
+train,eigenslang_pca,sentence-transformers/all-MiniLM-L6-v2,0.1111,0.1667,0.25
+validation,raw,sentence-transformers/all-MiniLM-L6-v2,0.0,0.0833,
+validation,mean_offset,sentence-transformers/all-MiniLM-L6-v2,0.0,0.0833,0.0
+validation,eigenslang_pca,sentence-transformers/all-MiniLM-L6-v2,0.0833,0.25,0.25
+test,raw,sentence-transformers/all-MiniLM-L6-v2,0.0,0.0833,
+test,mean_offset,sentence-transformers/all-MiniLM-L6-v2,0.0,0.0833,0.0
+test,eigenslang_pca,sentence-transformers/all-MiniLM-L6-v2,0.0,0.0,0.25

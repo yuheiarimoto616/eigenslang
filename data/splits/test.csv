@@ -1,0 +1,13 @@
+id,slang_term,context_sentence,neutral_paraphrase,category,source_type,notes
+ex017,drip,Her drip at the concert was unreal.,fashionable style,fashion,demo_seed,Noun usage
+ex028,shady,That refund policy feels shady to me.,dishonest,judgment,manual_expansion,Adjective usage
+ex005,delulu,"If you think they will refund all of that, you are delulu.",delusional,attitude,demo_seed,Common clipped form
+ex045,mogged,He got mogged in every photo from the trip.,looked much worse by comparison,appearance,manual_expansion,Comparative slang
+ex011,cap,That story about meeting the celebrity is cap.,a lie,truthfulness,demo_seed,Noun usage
+ex010,bussin,These tacos are bussin.,very tasty,food,demo_seed,Food-related usage
+ex009,flex,He keeps posting his watch just to flex.,show off,status,demo_seed,Verb sense
+ex041,hard launch,She hard launched her new relationship on Instagram.,publicly revealed,online,manual_expansion,Social media phrase
+ex049,serve,She served at the showcase last night.,performed stylishly and impressively,performance,manual_expansion,Verb usage
+ex002,ate,She really ate with that presentation today.,did extremely well,performance,demo_seed,Used in a positive evaluative sense
+ex039,af,This room is loud af tonight.,extremely,intensifier,manual_expansion,Suffix-like intensifier
+ex015,highkey,I highkey love this new laptop.,very much,intensifier,demo_seed,Adverbial intensifier

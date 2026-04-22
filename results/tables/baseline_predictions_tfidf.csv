@@ -1,0 +1,61 @@
+split,method,id,slang_term,context_sentence,gold_paraphrase,top_predictions
+train,raw,ex009,flex,He keeps posting his watch just to flex.,show off,show off || very much || excellent
+train,raw,ex012,no cap,"No cap, that was the hardest exam I have taken.",seriously,show off || very much || excellent
+train,raw,ex015,highkey,I highkey love this new laptop.,very much,show off || very much || excellent
+train,raw,ex002,ate,She really ate with that presentation today.,did extremely well,show off || very much || excellent
+train,raw,ex004,rizz,He has absurd rizz when he talks to strangers.,charisma,show off || very much || excellent
+train,raw,ex003,mid,That movie was pretty mid honestly.,mediocre,show off || very much || excellent
+train,raw,ex008,ghosted,She ghosted me after our second date.,suddenly stopped replying,show off || very much || excellent
+train,raw,ex011,cap,That story about meeting the celebrity is cap.,a lie,show off || very much || excellent
+train,raw,ex018,sus,This excuse sounds sus to me.,suspicious,show off || very much || excellent
+train,raw,ex016,ratioed,He got ratioed after that rude reply.,received far more criticism than support,show off || very much || excellent
+train,raw,ex019,bet,"Bet, I will send you the notes tonight.",okay,show off || very much || excellent
+train,raw,ex020,fire,That remix is fire.,excellent,show off || very much || excellent
+train,mean_offset,ex009,flex,He keeps posting his watch just to flex.,show off,show off || very much || excellent
+train,mean_offset,ex012,no cap,"No cap, that was the hardest exam I have taken.",seriously,show off || very much || excellent
+train,mean_offset,ex015,highkey,I highkey love this new laptop.,very much,show off || very much || excellent
+train,mean_offset,ex002,ate,She really ate with that presentation today.,did extremely well,show off || very much || excellent
+train,mean_offset,ex004,rizz,He has absurd rizz when he talks to strangers.,charisma,show off || very much || excellent
+train,mean_offset,ex003,mid,That movie was pretty mid honestly.,mediocre,show off || very much || excellent
+train,mean_offset,ex008,ghosted,She ghosted me after our second date.,suddenly stopped replying,show off || very much || excellent
+train,mean_offset,ex011,cap,That story about meeting the celebrity is cap.,a lie,show off || very much || excellent
+train,mean_offset,ex018,sus,This excuse sounds sus to me.,suspicious,show off || very much || excellent
+train,mean_offset,ex016,ratioed,He got ratioed after that rude reply.,received far more criticism than support,show off || very much || excellent
+train,mean_offset,ex019,bet,"Bet, I will send you the notes tonight.",okay,show off || very much || excellent
+train,mean_offset,ex020,fire,That remix is fire.,excellent,show off || very much || excellent
+train,eigenslang_pca,ex009,flex,He keeps posting his watch just to flex.,show off,show off || very much || excellent
+train,eigenslang_pca,ex012,no cap,"No cap, that was the hardest exam I have taken.",seriously,show off || very much || excellent
+train,eigenslang_pca,ex015,highkey,I highkey love this new laptop.,very much,show off || very much || excellent
+train,eigenslang_pca,ex002,ate,She really ate with that presentation today.,did extremely well,show off || very much || excellent
+train,eigenslang_pca,ex004,rizz,He has absurd rizz when he talks to strangers.,charisma,show off || very much || excellent
+train,eigenslang_pca,ex003,mid,That movie was pretty mid honestly.,mediocre,show off || very much || excellent
+train,eigenslang_pca,ex008,ghosted,She ghosted me after our second date.,suddenly stopped replying,show off || very much || excellent
+train,eigenslang_pca,ex011,cap,That story about meeting the celebrity is cap.,a lie,show off || very much || excellent
+train,eigenslang_pca,ex018,sus,This excuse sounds sus to me.,suspicious,show off || very much || excellent
+train,eigenslang_pca,ex016,ratioed,He got ratioed after that rude reply.,received far more criticism than support,show off || very much || excellent
+train,eigenslang_pca,ex019,bet,"Bet, I will send you the notes tonight.",okay,show off || very much || excellent
+train,eigenslang_pca,ex020,fire,That remix is fire.,excellent,show off || very much || excellent
+validation,raw,ex007,down bad,Ever since the breakup he has been down bad.,emotionally desperate,a lie || upset || suspicious
+validation,raw,ex006,slaps,This playlist slaps from start to finish.,is excellent,a lie || upset || suspicious
+validation,raw,ex014,lowkey,I lowkey want to skip the party and stay home.,kind of,a lie || upset || suspicious
+validation,raw,ex005,delulu,"If you think they will refund all of that, you are delulu.",delusional,a lie || upset || suspicious
+validation,mean_offset,ex007,down bad,Ever since the breakup he has been down bad.,emotionally desperate,a lie || upset || suspicious
+validation,mean_offset,ex006,slaps,This playlist slaps from start to finish.,is excellent,a lie || upset || suspicious
+validation,mean_offset,ex014,lowkey,I lowkey want to skip the party and stay home.,kind of,a lie || upset || suspicious
+validation,mean_offset,ex005,delulu,"If you think they will refund all of that, you are delulu.",delusional,a lie || upset || suspicious
+validation,eigenslang_pca,ex007,down bad,Ever since the breakup he has been down bad.,emotionally desperate,a lie || upset || suspicious
+validation,eigenslang_pca,ex006,slaps,This playlist slaps from start to finish.,is excellent,a lie || upset || suspicious
+validation,eigenslang_pca,ex014,lowkey,I lowkey want to skip the party and stay home.,kind of,a lie || upset || suspicious
+validation,eigenslang_pca,ex005,delulu,"If you think they will refund all of that, you are delulu.",delusional,a lie || upset || suspicious
+test,raw,ex010,bussin,These tacos are bussin.,very tasty,a lie || upset || suspicious
+test,raw,ex013,pressed,Why are you so pressed about a small comment?,upset,a lie || upset || suspicious
+test,raw,ex017,drip,Her drip at the concert was unreal.,fashionable style,a lie || upset || suspicious
+test,raw,ex001,cooked,"After missing two deadlines, I am completely cooked in this class.",in serious trouble,a lie || upset || suspicious
+test,mean_offset,ex010,bussin,These tacos are bussin.,very tasty,a lie || upset || suspicious
+test,mean_offset,ex013,pressed,Why are you so pressed about a small comment?,upset,a lie || upset || suspicious
+test,mean_offset,ex017,drip,Her drip at the concert was unreal.,fashionable style,a lie || upset || suspicious
+test,mean_offset,ex001,cooked,"After missing two deadlines, I am completely cooked in this class.",in serious trouble,a lie || upset || suspicious
+test,eigenslang_pca,ex010,bussin,These tacos are bussin.,very tasty,a lie || upset || suspicious
+test,eigenslang_pca,ex013,pressed,Why are you so pressed about a small comment?,upset,a lie || upset || suspicious
+test,eigenslang_pca,ex017,drip,Her drip at the concert was unreal.,fashionable style,a lie || upset || suspicious
+test,eigenslang_pca,ex001,cooked,"After missing two deadlines, I am completely cooked in this class.",in serious trouble,a lie || upset || suspicious

@@ -1,0 +1,10 @@
+split,method,backend,top_1_accuracy,top_3_accuracy,alpha
+train,raw,tfidf,0.0833,0.25,
+train,mean_offset,tfidf,0.0833,0.25,0.0
+train,eigenslang_pca,tfidf,0.0833,0.25,0.0
+validation,raw,tfidf,0.0,0.0,
+validation,mean_offset,tfidf,0.0,0.0,0.0
+validation,eigenslang_pca,tfidf,0.0,0.0,0.0
+test,raw,tfidf,0.0,0.25,
+test,mean_offset,tfidf,0.0,0.25,0.0
+test,eigenslang_pca,tfidf,0.0,0.25,0.0
