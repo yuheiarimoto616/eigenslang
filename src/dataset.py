@@ -16,6 +16,16 @@ REQUIRED_COLUMNS = [
     "notes",
 ]
 
+OPTIONAL_CLEAN_COLUMNS = [
+    "neutral_expression",
+    "neutral_sentence",
+    "neutral_alternatives",
+    "source_name",
+    "source_url",
+    "confidence",
+    "review_status",
+]
+
 
 @dataclass(frozen=True)
 class DatasetSplit:
@@ -34,7 +44,11 @@ def load_examples(csv_path: str | Path) -> pd.DataFrame:
     if missing:
         raise ValueError(f"Dataset is missing required columns: {missing}")
 
-    for column in REQUIRED_COLUMNS:
+    for column in OPTIONAL_CLEAN_COLUMNS:
+        if column not in df.columns:
+            df[column] = ""
+
+    for column in REQUIRED_COLUMNS + OPTIONAL_CLEAN_COLUMNS:
         df[column] = df[column].fillna("").astype(str).str.strip()
 
     _validate_examples(df)

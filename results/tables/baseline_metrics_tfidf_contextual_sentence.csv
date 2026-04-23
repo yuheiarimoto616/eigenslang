@@ -1,0 +1,10 @@
+split,method,backend,representation_mode,top_1_accuracy,top_3_accuracy,alpha
+train,raw,tfidf,contextual_sentence,0.0175,0.0526,
+train,mean_offset,tfidf,contextual_sentence,0.0175,0.0526,0.0
+train,eigenslang_pca,tfidf,contextual_sentence,0.0175,0.0526,0.0
+validation,raw,tfidf,contextual_sentence,0.1053,0.2105,
+validation,mean_offset,tfidf,contextual_sentence,0.1053,0.2105,0.0
+validation,eigenslang_pca,tfidf,contextual_sentence,0.1053,0.2105,0.0
+test,raw,tfidf,contextual_sentence,0.0,0.0,
+test,mean_offset,tfidf,contextual_sentence,0.0,0.0,0.0
+test,eigenslang_pca,tfidf,contextual_sentence,0.0,0.0,0.0

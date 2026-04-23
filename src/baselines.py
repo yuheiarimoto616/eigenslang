@@ -11,39 +11,80 @@ from sklearn.metrics.pairwise import cosine_similarity
 from src.embeddings import EmbeddingBackend
 
 
-def build_query_text(row: pd.Series) -> str:
-    return row["context_sentence"]
+REPRESENTATION_MODES = {"contextual_sentence", "term_paraphrase"}
 
 
-def build_candidate_text(context_sentence: str, slang_term: str, paraphrase: str) -> str:
-    pattern = re.compile(re.escape(slang_term), flags=re.IGNORECASE)
+def build_query_text(row: pd.Series | dict[str, str], representation_mode: str) -> str:
+    if representation_mode == "contextual_sentence":
+        return row["context_sentence"]
+    if representation_mode == "term_paraphrase":
+        return row["slang_term"]
+    raise ValueError(f"Unsupported representation mode: {representation_mode}")
+
+
+def gold_label(row: pd.Series | dict[str, str], representation_mode: str) -> str:
+    if representation_mode == "contextual_sentence":
+        return row["neutral_paraphrase"]
+    if representation_mode == "term_paraphrase":
+        return row.get("neutral_expression") or row["neutral_paraphrase"]
+    raise ValueError(f"Unsupported representation mode: {representation_mode}")
+
+
+def candidate_text(row: pd.Series | dict[str, str], label: str, representation_mode: str) -> str:
+    if representation_mode == "contextual_sentence":
+        if label == row.get("neutral_paraphrase") and row.get("neutral_sentence"):
+            return row["neutral_sentence"]
+        return build_candidate_sentence(
+            context_sentence=row["context_sentence"],
+            slang_term=row["slang_term"],
+            paraphrase=label,
+        )
+    if representation_mode == "term_paraphrase":
+        return label
+    raise ValueError(f"Unsupported representation mode: {representation_mode}")
+
+
+def build_candidate_sentence(context_sentence: str, slang_term: str, paraphrase: str) -> str:
+    pattern = slang_pattern(slang_term)
     replaced = pattern.sub(paraphrase, context_sentence, count=1)
     if replaced == context_sentence:
         return f"{context_sentence} meaning: {paraphrase}"
     return replaced
 
 
+def slang_pattern(slang_term: str) -> re.Pattern[str]:
+    escaped = re.escape(slang_term)
+    if re.match(r"^[A-Za-z0-9]+$", slang_term):
+        return re.compile(rf"\b{escaped}\b", flags=re.IGNORECASE)
+    return re.compile(escaped, flags=re.IGNORECASE)
+
+
 @dataclass
 class RetrievalArtifacts:
     backend: EmbeddingBackend
     candidate_labels: list[str]
+    representation_mode: str
     examples: list[dict[str, str]]
     query_matrix: np.ndarray
     target_matrix: np.ndarray
+    candidate_matrices: list[np.ndarray]
 
 
-def fit_backend(train_df: pd.DataFrame, candidate_labels: list[str], backend: EmbeddingBackend) -> EmbeddingBackend:
-    train_texts = train_df.apply(build_query_text, axis=1).tolist()
+def fit_backend(
+    train_df: pd.DataFrame,
+    candidate_labels: list[str],
+    backend: EmbeddingBackend,
+    representation_mode: str,
+) -> EmbeddingBackend:
+    validate_representation_mode(representation_mode)
+    train_texts = [
+        build_query_text(row, representation_mode)
+        for row in train_df.to_dict("records")
+    ]
     candidate_texts: list[str] = []
     for row in train_df.to_dict("records"):
         for label in candidate_labels:
-            candidate_texts.append(
-                build_candidate_text(
-                    context_sentence=row["context_sentence"],
-                    slang_term=row["slang_term"],
-                    paraphrase=label,
-                )
-            )
+            candidate_texts.append(candidate_text(row, label, representation_mode))
 
     backend.fit(train_texts + candidate_texts)
     return backend
@@ -53,26 +94,36 @@ def embed_split(
     split_df: pd.DataFrame,
     candidate_labels: list[str],
     backend: EmbeddingBackend,
+    representation_mode: str,
 ) -> RetrievalArtifacts:
-    query_texts = split_df.apply(build_query_text, axis=1).tolist()
+    validate_representation_mode(representation_mode)
+    records = split_df.to_dict("records")
+    query_texts = [build_query_text(row, representation_mode) for row in records]
     target_texts = [
-        build_candidate_text(
-            context_sentence=row["context_sentence"],
-            slang_term=row["slang_term"],
-            paraphrase=row["neutral_paraphrase"],
-        )
-        for row in split_df.to_dict("records")
+        candidate_text(row, gold_label(row, representation_mode), representation_mode)
+        for row in records
     ]
 
     query_matrix = backend.encode(query_texts)
     target_matrix = backend.encode(target_texts)
+    candidate_matrices = [
+        _candidate_matrix_for_example(
+            example=row,
+            candidate_labels=candidate_labels,
+            backend=backend,
+            representation_mode=representation_mode,
+        )
+        for row in records
+    ]
 
     return RetrievalArtifacts(
         backend=backend,
         candidate_labels=candidate_labels,
+        representation_mode=representation_mode,
         examples=split_df.to_dict("records"),
         query_matrix=query_matrix,
         target_matrix=target_matrix,
+        candidate_matrices=candidate_matrices,
     )
 
 
@@ -80,13 +131,10 @@ def _candidate_matrix_for_example(
     example: dict[str, str],
     candidate_labels: list[str],
     backend: EmbeddingBackend,
+    representation_mode: str,
 ) -> np.ndarray:
     candidate_texts = [
-        build_candidate_text(
-            context_sentence=example["context_sentence"],
-            slang_term=example["slang_term"],
-            paraphrase=label,
-        )
+        candidate_text(example, label, representation_mode)
         for label in candidate_labels
     ]
     return backend.encode(candidate_texts)
@@ -97,12 +145,7 @@ def _rank_candidates(
     artifacts: RetrievalArtifacts,
 ) -> list[list[str]]:
     ranked_predictions: list[list[str]] = []
-    for query_vector, example in zip(query_matrix, artifacts.examples):
-        candidate_matrix = _candidate_matrix_for_example(
-            example=example,
-            candidate_labels=artifacts.candidate_labels,
-            backend=artifacts.backend,
-        )
+    for query_vector, candidate_matrix in zip(query_matrix, artifacts.candidate_matrices):
         scores = cosine_similarity(query_vector.reshape(1, -1), candidate_matrix)[0]
         ranked_indices = np.argsort(-scores)
         ranked_predictions.append([artifacts.candidate_labels[index] for index in ranked_indices])
@@ -149,15 +192,19 @@ def eigenslang_retrieval(
 def evaluate_rankings(
     split_df: pd.DataFrame,
     ranked_predictions: list[list[str]],
+    representation_mode: str,
     top_k_values: tuple[int, ...] = (1, 3),
 ) -> dict[str, float]:
-    gold = split_df["neutral_paraphrase"].tolist()
+    gold = [
+        gold_label(row, representation_mode)
+        for row in split_df.to_dict("records")
+    ]
     metrics: dict[str, float] = {}
 
     for top_k in top_k_values:
         correct = 0
-        for gold_label, predictions in zip(gold, ranked_predictions):
-            if gold_label in predictions[:top_k]:
+        for target_label, predictions in zip(gold, ranked_predictions):
+            if target_label in predictions[:top_k]:
                 correct += 1
         metrics[f"top_{top_k}_accuracy"] = correct / len(gold)
 
@@ -179,7 +226,12 @@ def tune_alpha(
 
     for alpha in alpha_grid:
         predictions = retrieval_fn(validation_artifacts, transform, alpha)
-        metrics = evaluate_rankings(validation_df, predictions, top_k_values=(1,))
+        metrics = evaluate_rankings(
+            validation_df,
+            predictions,
+            representation_mode=validation_artifacts.representation_mode,
+            top_k_values=(1,),
+        )
         score = metrics["top_1_accuracy"]
         if score > best_score:
             best_score = score
@@ -193,6 +245,7 @@ def build_prediction_rows(
     method: str,
     split_df: pd.DataFrame,
     ranked_predictions: list[list[str]],
+    representation_mode: str,
     top_n: int = 3,
 ) -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
@@ -204,8 +257,20 @@ def build_prediction_rows(
                 "id": example["id"],
                 "slang_term": example["slang_term"],
                 "context_sentence": example["context_sentence"],
-                "gold_paraphrase": example["neutral_paraphrase"],
+                "representation_mode": representation_mode,
+                "gold_label": gold_label(example, representation_mode),
+                "neutral_paraphrase": example["neutral_paraphrase"],
+                "neutral_expression": example.get("neutral_expression", ""),
+                "neutral_sentence": example.get("neutral_sentence", ""),
                 "top_predictions": " || ".join(predictions[:top_n]),
             }
         )
     return rows
+
+
+def validate_representation_mode(representation_mode: str) -> None:
+    if representation_mode not in REPRESENTATION_MODES:
+        raise ValueError(
+            f"Unsupported representation mode: {representation_mode}. "
+            f"Expected one of {sorted(REPRESENTATION_MODES)}"
+        )

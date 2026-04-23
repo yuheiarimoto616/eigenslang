@@ -1,0 +1,33 @@
+Eigenslang Clean Dataset Build Report
+
+Clean rows: 96
+Rejected external rows recorded: 264
+
+Category counts:
+category
+judgment               14
+emotion                12
+intensifier            12
+online                 12
+dating_social          10
+action_event            8
+other                   8
+agreement_discourse     8
+appearance_style        7
+performance             5
+
+Source type counts:
+source_type
+manual_expansion    40
+external_dataset    36
+demo_seed           20
+
+Review status counts:
+review_status
+manual_seed                            58
+external_selected_auto                 36
+manual_seed_neutral_sentence_review     2
+
+Confidence counts:
+confidence
+high    96

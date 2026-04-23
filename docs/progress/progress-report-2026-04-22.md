@@ -259,6 +259,8 @@ Main code files:
 - `src/baselines.py`
 - `src/embeddings.py`
 - `src/evaluate.py`
+- `scripts/import_hf_genz_dataset.py`
+- `scripts/clean_external_genz_dataset.py`
 - `experiments/run_baseline.py`
 
 Data and documentation:
@@ -272,6 +274,8 @@ Generated outputs:
 - `data/splits/train.csv`
 - `data/splits/validation.csv`
 - `data/splits/test.csv`
+- `data/raw/external/mlbtrio_genz_slang_dataset.csv`
+- `data/processed/slang_examples_candidate_external.csv`
 - `results/tables/baseline_metrics_tfidf.csv`
 - `results/tables/baseline_predictions_tfidf.csv`
 - `results/tables/baseline_metrics_sentence_transformers_all_minilm_l6_v2.csv`
@@ -280,6 +284,83 @@ Generated outputs:
 Note:
 
 - older generic files like `baseline_metrics.csv` and `baseline_predictions.csv` remain from earlier runs and should not be treated as the current canonical outputs.
+
+## External Dataset Import
+An external candidate dataset was imported from Hugging Face:
+
+- source: `MLBtrio/genz-slang-dataset`
+- URL: `https://huggingface.co/datasets/MLBtrio/genz-slang-dataset`
+- raw imported file: `data/raw/external/mlbtrio_genz_slang_dataset.csv`
+- cleaned candidate file: `data/processed/slang_examples_candidate_external.csv`
+
+The raw external dataset contains 1779 rows with columns:
+
+- `Slang`
+- `Description`
+- `Example`
+- `Context`
+
+The cleaning script maps these into the richer Eigenslang schema and writes 300 candidate rows by default.
+
+Important caveat:
+
+- The cleaned external file is a candidate review pool, not final experiment data.
+- Automatic neutral sentence generation can still produce awkward outputs.
+- External rows should be manually reviewed or filtered before inclusion in final experiments.
+- The source must be cited in the final report if any imported rows are used.
+
+## Clean Dataset Build
+A curation script now merges the manual dataset with selected external candidates:
+
+- script: `scripts/build_clean_dataset.py`
+- clean output: `data/processed/slang_examples_clean.csv`
+- rejected output: `data/processed/slang_examples_clean_rejected.csv`
+- build report: `data/processed/slang_examples_clean_report.txt`
+
+Current clean dataset:
+
+- 96 rows total
+- 60 manual rows
+- 36 selected external rows
+- 264 external rows rejected or skipped by filters
+
+Current review status:
+
+- 52 manual rows accepted directly
+- 8 manual rows flagged for neutral sentence review
+- 36 external rows selected automatically
+
+Important caveat:
+
+- `slang_examples_clean.csv` is a stronger experiment dataset than the raw file, but it still needs a small manual pass over rows flagged as `manual_seed_neutral_sentence_review`.
+- The selected external rows should also be spot-checked before final report experiments.
+
+## Representation Mode Experiments
+The baseline pipeline now supports two offset formulations:
+
+- `contextual_sentence`: `Embed(slang sentence) - Embed(neutral sentence)`
+- `term_paraphrase`: `Embed(slang term) - Embed(neutral expression)`
+
+This addresses the methodological difference between the original proposal and the first implementation.
+
+Current result files include:
+
+- `results/tables/baseline_metrics_tfidf_contextual_sentence.csv`
+- `results/tables/baseline_metrics_tfidf_term_paraphrase.csv`
+- `results/tables/baseline_metrics_sentence_transformers_all_minilm_l6_v2_contextual_sentence.csv`
+- `results/tables/baseline_metrics_sentence_transformers_all_minilm_l6_v2_term_paraphrase.csv`
+
+Current high-level result on `data/processed/slang_examples_clean.csv`:
+
+- Contextual sentence mode with sentence-transformer: PCA `Eigenslang` improves test Top-1 from 0.0000 to 0.0500 and test Top-3 from 0.0500 to 0.1000.
+- Term/paraphrase mode with sentence-transformer: raw, mean-offset, and PCA all have the same test Top-1 of 0.1000 and Top-3 of 0.2500.
+- TF-IDF remains a weak lexical baseline.
+
+Interpretation:
+
+- The proposal-faithful term/paraphrase formulation now exists and can be reported honestly.
+- The contextual sentence formulation shows a small PCA gain on the current split, but the absolute numbers are still low.
+- The next likely bottleneck is candidate-set difficulty and analysis tooling, not just embedding choice.
 
 ## Recommended Next Step
 The next highest-value step is dataset expansion, not more model work.

@@ -1,0 +1,10 @@
+split,method,backend,representation_mode,top_1_accuracy,top_3_accuracy,alpha
+train,raw,tfidf,term_paraphrase,0.0175,0.0526,
+train,mean_offset,tfidf,term_paraphrase,0.0175,0.0526,0.0
+train,eigenslang_pca,tfidf,term_paraphrase,0.0175,0.0526,0.0
+validation,raw,tfidf,term_paraphrase,0.1579,0.1579,
+validation,mean_offset,tfidf,term_paraphrase,0.1579,0.1579,0.0
+validation,eigenslang_pca,tfidf,term_paraphrase,0.1579,0.1579,0.0
+test,raw,tfidf,term_paraphrase,0.0,0.0,
+test,mean_offset,tfidf,term_paraphrase,0.0,0.0,0.0
+test,eigenslang_pca,tfidf,term_paraphrase,0.0,0.0,0.0

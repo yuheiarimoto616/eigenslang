@@ -17,9 +17,11 @@ from src.baselines import (
     embed_split,
     evaluate_rankings,
     fit_backend,
+    gold_label,
     mean_offset_retrieval,
     raw_retrieval,
     tune_alpha,
+    validate_representation_mode,
 )
 from src.dataset import load_examples, save_splits, split_examples
 from src.embeddings import create_backend
@@ -30,8 +32,8 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run retrieval baselines for the Eigenslang project.")
     parser.add_argument(
         "--input",
-        default="data/raw/slang_examples.csv",
-        help="Path to the raw dataset CSV.",
+        default="data/processed/slang_examples_clean.csv",
+        help="Path to the dataset CSV.",
     )
     parser.add_argument(
         "--splits-dir",
@@ -54,6 +56,12 @@ def parse_args() -> argparse.Namespace:
         default="sentence-transformers/all-MiniLM-L6-v2",
         help="Model name for sentence-transformer backend.",
     )
+    parser.add_argument(
+        "--representation-mode",
+        default="contextual_sentence",
+        choices=["contextual_sentence", "term_paraphrase"],
+        help="How to construct slang and neutral embeddings.",
+    )
     return parser.parse_args()
 
 
@@ -63,17 +71,23 @@ def slugify_backend_name(name: str) -> str:
 
 def main() -> None:
     args = parse_args()
+    validate_representation_mode(args.representation_mode)
     dataset = load_examples(args.input)
     split = split_examples(dataset)
     save_splits(split, args.splits_dir)
 
-    candidate_labels = sorted(dataset["neutral_paraphrase"].unique().tolist())
+    candidate_labels = sorted(
+        {
+            gold_label(row, args.representation_mode)
+            for row in dataset.to_dict("records")
+        }
+    )
     backend = create_backend(args.backend, args.model)
-    backend = fit_backend(split.train, candidate_labels, backend)
+    backend = fit_backend(split.train, candidate_labels, backend, args.representation_mode)
 
-    train_artifacts = embed_split(split.train, candidate_labels, backend)
-    validation_artifacts = embed_split(split.validation, candidate_labels, backend)
-    test_artifacts = embed_split(split.test, candidate_labels, backend)
+    train_artifacts = embed_split(split.train, candidate_labels, backend, args.representation_mode)
+    validation_artifacts = embed_split(split.validation, candidate_labels, backend, args.representation_mode)
+    test_artifacts = embed_split(split.test, candidate_labels, backend, args.representation_mode)
 
     mean_offset = compute_mean_offset(train_artifacts)
     eigenslang_direction = compute_eigenslang_direction(train_artifacts)
@@ -114,11 +128,16 @@ def main() -> None:
             ("mean_offset", mean_predictions, best_mean_alpha),
             ("eigenslang_pca", eigenslang_predictions, best_eigenslang_alpha),
         ]:
-            metrics = evaluate_rankings(split_df, predictions)
+            metrics = evaluate_rankings(
+                split_df,
+                predictions,
+                representation_mode=args.representation_mode,
+            )
             row = {
                 "split": split_name,
                 "method": method_name,
                 "backend": backend.name,
+                "representation_mode": args.representation_mode,
                 "top_1_accuracy": round(metrics["top_1_accuracy"], 4),
                 "top_3_accuracy": round(metrics["top_3_accuracy"], 4),
             }
@@ -132,13 +151,15 @@ def main() -> None:
                     method=method_name,
                     split_df=split_df,
                     ranked_predictions=predictions,
+                    representation_mode=args.representation_mode,
                 )
             )
 
     results_dir = Path(args.results_dir)
     backend_slug = slugify_backend_name(backend.name)
-    metrics_path = results_dir / f"baseline_metrics_{backend_slug}.csv"
-    predictions_path = results_dir / f"baseline_predictions_{backend_slug}.csv"
+    mode_slug = slugify_backend_name(args.representation_mode)
+    metrics_path = results_dir / f"baseline_metrics_{backend_slug}_{mode_slug}.csv"
+    predictions_path = results_dir / f"baseline_predictions_{backend_slug}_{mode_slug}.csv"
     write_metrics_table(metrics_rows, metrics_path)
     write_prediction_table(prediction_rows, predictions_path)
 
@@ -146,6 +167,7 @@ def main() -> None:
     print("Saved metrics to:", metrics_path.resolve())
     print("Saved predictions to:", predictions_path.resolve())
     print(f"Backend: {backend.name}")
+    print(f"Representation mode: {args.representation_mode}")
     print(f"Best mean-offset alpha: {best_mean_alpha}")
     print(f"Best eigenslang alpha: {best_eigenslang_alpha}")
 

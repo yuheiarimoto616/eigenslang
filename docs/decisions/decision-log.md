@@ -83,3 +83,30 @@ Reason:
 
 - These are attractive but non-essential expansions.
 - They increase implementation risk without improving the core argument enough.
+
+## D9. Treat word2vec as an optional ablation, not the primary model
+Decision:
+
+- Do not switch the main experiment from sentence-transformer embeddings to word2vec by default.
+- Consider word2vec only as a static word-vector baseline after evaluation design is improved.
+
+Reason:
+
+- Word2Vec is conceptually aligned with vector offsets and would be easy to explain in the report.
+- However, it is static, word-level, and likely weak for recent, polysemous, and phrase-level slang.
+- The current bottleneck is candidate-set design and task formulation, not the absence of another embedding model.
+- If word2vec performs poorly, it may still be useful as evidence that contextual or phrase-level representations are needed.
+
+## D10. Distinguish term/paraphrase offsets from contextual sentence offsets
+Decision:
+
+- Do not present the current implementation as exactly identical to the proposal's simplest \(s_i - n_i\) formulation.
+- Document that the current code uses a context-preserving sentence offset.
+- Add a proposal-faithful term/paraphrase offset mode before final experiments.
+
+Reason:
+
+- The proposal describes slang-expression embeddings minus neutral-paraphrase embeddings.
+- The current implementation computes slang-sentence embeddings minus neutralized-sentence embeddings.
+- This divergence is methodologically defensible because the dataset contains polysemous and phrase-level slang.
+- Comparing both variants will make the final report more honest and stronger.
