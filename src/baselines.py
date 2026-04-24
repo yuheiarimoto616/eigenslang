@@ -12,6 +12,7 @@ from src.embeddings import EmbeddingBackend
 
 
 REPRESENTATION_MODES = {"contextual_sentence", "term_paraphrase"}
+CANDIDATE_MODES = {"all_candidates", "category_candidates", "balanced_distractors"}
 
 
 def build_query_text(row: pd.Series | dict[str, str], representation_mode: str) -> str:
@@ -62,11 +63,11 @@ def slang_pattern(slang_term: str) -> re.Pattern[str]:
 @dataclass
 class RetrievalArtifacts:
     backend: EmbeddingBackend
-    candidate_labels: list[str]
     representation_mode: str
     examples: list[dict[str, str]]
     query_matrix: np.ndarray
     target_matrix: np.ndarray
+    candidate_label_lists: list[list[str]]
     candidate_matrices: list[np.ndarray]
 
 
@@ -92,11 +93,15 @@ def fit_backend(
 
 def embed_split(
     split_df: pd.DataFrame,
-    candidate_labels: list[str],
+    candidate_df: pd.DataFrame,
     backend: EmbeddingBackend,
     representation_mode: str,
+    candidate_mode: str,
+    balanced_same_category: int = 4,
+    balanced_random: int = 4,
 ) -> RetrievalArtifacts:
     validate_representation_mode(representation_mode)
+    validate_candidate_mode(candidate_mode)
     records = split_df.to_dict("records")
     query_texts = [build_query_text(row, representation_mode) for row in records]
     target_texts = [
@@ -106,23 +111,34 @@ def embed_split(
 
     query_matrix = backend.encode(query_texts)
     target_matrix = backend.encode(target_texts)
+    candidate_label_lists = [
+        candidate_labels_for_example(
+            example=row,
+            candidate_df=candidate_df,
+            representation_mode=representation_mode,
+            candidate_mode=candidate_mode,
+            balanced_same_category=balanced_same_category,
+            balanced_random=balanced_random,
+        )
+        for row in records
+    ]
     candidate_matrices = [
         _candidate_matrix_for_example(
             example=row,
-            candidate_labels=candidate_labels,
+            candidate_labels=labels,
             backend=backend,
             representation_mode=representation_mode,
         )
-        for row in records
+        for row, labels in zip(records, candidate_label_lists)
     ]
 
     return RetrievalArtifacts(
         backend=backend,
-        candidate_labels=candidate_labels,
         representation_mode=representation_mode,
         examples=split_df.to_dict("records"),
         query_matrix=query_matrix,
         target_matrix=target_matrix,
+        candidate_label_lists=candidate_label_lists,
         candidate_matrices=candidate_matrices,
     )
 
@@ -145,10 +161,14 @@ def _rank_candidates(
     artifacts: RetrievalArtifacts,
 ) -> list[list[str]]:
     ranked_predictions: list[list[str]] = []
-    for query_vector, candidate_matrix in zip(query_matrix, artifacts.candidate_matrices):
+    for query_vector, candidate_matrix, candidate_labels in zip(
+        query_matrix,
+        artifacts.candidate_matrices,
+        artifacts.candidate_label_lists,
+    ):
         scores = cosine_similarity(query_vector.reshape(1, -1), candidate_matrix)[0]
         ranked_indices = np.argsort(-scores)
-        ranked_predictions.append([artifacts.candidate_labels[index] for index in ranked_indices])
+        ranked_predictions.append([candidate_labels[index] for index in ranked_indices])
     return ranked_predictions
 
 
@@ -178,6 +198,38 @@ def compute_eigenslang_direction(train_artifacts: RetrievalArtifacts) -> np.ndar
     pca = PCA(n_components=1, random_state=440)
     pca.fit(differences)
     return pca.components_[0]
+
+
+def compute_pca_spectrum(
+    train_artifacts: RetrievalArtifacts,
+    max_components: int = 10,
+) -> list[dict[str, float]]:
+    differences = train_artifacts.query_matrix - train_artifacts.target_matrix
+    if len(differences) < 2:
+        return [
+            {
+                "component": 1,
+                "explained_variance_ratio": 1.0,
+                "cumulative_explained_variance_ratio": 1.0,
+            }
+        ]
+
+    n_components = min(max_components, differences.shape[0], differences.shape[1])
+    pca = PCA(n_components=n_components, random_state=440)
+    pca.fit(differences)
+
+    spectrum: list[dict[str, float]] = []
+    cumulative = 0.0
+    for index, ratio in enumerate(pca.explained_variance_ratio_, start=1):
+        cumulative += float(ratio)
+        spectrum.append(
+            {
+                "component": index,
+                "explained_variance_ratio": float(ratio),
+                "cumulative_explained_variance_ratio": cumulative,
+            }
+        )
+    return spectrum
 
 
 def eigenslang_retrieval(
@@ -274,3 +326,66 @@ def validate_representation_mode(representation_mode: str) -> None:
             f"Unsupported representation mode: {representation_mode}. "
             f"Expected one of {sorted(REPRESENTATION_MODES)}"
         )
+
+
+def validate_candidate_mode(candidate_mode: str) -> None:
+    if candidate_mode not in CANDIDATE_MODES:
+        raise ValueError(
+            f"Unsupported candidate mode: {candidate_mode}. "
+            f"Expected one of {sorted(CANDIDATE_MODES)}"
+        )
+
+
+def build_candidate_df(df: pd.DataFrame, representation_mode: str) -> pd.DataFrame:
+    validate_representation_mode(representation_mode)
+    rows: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for record in df.to_dict("records"):
+        label = gold_label(record, representation_mode)
+        key = (label, record["category"])
+        if key in seen:
+            continue
+        seen.add(key)
+        rows.append(
+            {
+                "label": label,
+                "category": record["category"],
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def candidate_labels_for_example(
+    example: dict[str, str],
+    candidate_df: pd.DataFrame,
+    representation_mode: str,
+    candidate_mode: str,
+    balanced_same_category: int,
+    balanced_random: int,
+) -> list[str]:
+    gold = gold_label(example, representation_mode)
+    category = example["category"]
+
+    if candidate_mode == "all_candidates":
+        labels = candidate_df["label"].tolist()
+    elif candidate_mode == "category_candidates":
+        labels = candidate_df.loc[candidate_df["category"] == category, "label"].tolist()
+    elif candidate_mode == "balanced_distractors":
+        same_category = [
+            label for label in candidate_df.loc[candidate_df["category"] == category, "label"].tolist()
+            if label != gold
+        ]
+        other = [
+            label for label in candidate_df.loc[candidate_df["category"] != category, "label"].tolist()
+            if label != gold
+        ]
+        labels = [gold]
+        labels.extend(sorted(same_category)[:balanced_same_category])
+        labels.extend(sorted(other)[:balanced_random])
+    else:
+        raise ValueError(f"Unsupported candidate mode: {candidate_mode}")
+
+    if gold not in labels:
+        labels.append(gold)
+
+    return sorted(dict.fromkeys(labels))

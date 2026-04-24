@@ -362,6 +362,53 @@ Interpretation:
 - The contextual sentence formulation shows a small PCA gain on the current split, but the absolute numbers are still low.
 - The next likely bottleneck is candidate-set difficulty and analysis tooling, not just embedding choice.
 
+## Candidate-Set Evaluation
+The retrieval pipeline now supports three candidate-set modes:
+
+- `all_candidates`
+- `category_candidates`
+- `balanced_distractors`
+
+This was added because the original all-candidate setting appeared too harsh and may have been obscuring the structure of the task.
+
+Using the sentence-transformer backend with the term/paraphrase formulation, the current test-set results are:
+
+| Candidate mode | Raw Top-1 | Raw Top-3 | Best non-raw result |
+| --- | ---: | ---: | --- |
+| all candidates | 0.10 | 0.25 | no improvement over raw |
+| category candidates | 0.35 | 0.65 | mean offset improves Top-3 to 0.70 |
+| balanced distractors | 0.40 | 0.80 | mean offset improves Top-1 to 0.45 |
+
+Interpretation:
+
+- Evaluation design changes the observed difficulty substantially.
+- The project now has stronger evidence that the weak original numbers were partly caused by the retrieval setup, not just by poor embeddings.
+- Mean offset currently looks more helpful than PCA under the improved candidate settings.
+- The next report should include both the hardest setting (`all_candidates`) and at least one controlled setting (`category_candidates` or `balanced_distractors`).
+
+## PCA Variance Explained
+The pipeline now exports PCA spectrum tables for each run.
+
+Relevant files:
+
+- `results/tables/pca_spectrum_sentence_transformers_all_minilm_l6_v2_term_paraphrase_category_candidates.csv`
+- `results/tables/pca_spectrum_sentence_transformers_all_minilm_l6_v2_contextual_sentence_category_candidates.csv`
+
+Current result:
+
+- term/paraphrase + category candidates:
+  - PC1 explained variance ratio: about `0.0528`
+  - top-3 cumulative explained variance: about `0.1377`
+- contextual sentence + category candidates:
+  - PC1 explained variance ratio: about `0.0545`
+  - top-3 cumulative explained variance: about `0.1524`
+
+Interpretation:
+
+- The first principal component explains only about 5\% of the variance in both formulations.
+- This is weak evidence for a dominant single `Eigenslang` direction.
+- The current data are more consistent with a diffuse or multi-factor structure than with one strong global slang axis.
+
 ## Recommended Next Step
 The next highest-value step is dataset expansion, not more model work.
 

@@ -1,0 +1,29 @@
+\begin{table}
+  \caption{Sentence-transformer test accuracy under different candidate sets.}
+  \label{tab:candidate-results}
+  \centering
+  \begin{tabular}{llllll}
+    \toprule
+    Representation & Candidate set & Method & Top-1 & Top-3 & $\alpha$ \\
+    \midrule
+    term/paraphrase & all & raw & 0.10 & 0.25 & -- \\
+    term/paraphrase & all & mean offset & 0.10 & 0.25 & 0.25 \\
+    term/paraphrase & all & PCA Eigenslang & 0.10 & 0.25 & 0.0 \\
+    term/paraphrase & category & raw & 0.35 & 0.65 & -- \\
+    term/paraphrase & category & mean offset & 0.35 & 0.70 & 1.5 \\
+    term/paraphrase & category & PCA Eigenslang & 0.35 & 0.65 & 0.0 \\
+    term/paraphrase & balanced & raw & 0.40 & 0.80 & -- \\
+    term/paraphrase & balanced & mean offset & 0.45 & 0.75 & 0.5 \\
+    term/paraphrase & balanced & PCA Eigenslang & 0.40 & 0.80 & 0.0 \\
+    contextual & all & raw & 0.00 & 0.05 & -- \\
+    contextual & all & mean offset & 0.00 & 0.05 & 0.0 \\
+    contextual & all & PCA Eigenslang & 0.05 & 0.10 & 0.25 \\
+    contextual & category & raw & 0.30 & 0.50 & -- \\
+    contextual & category & mean offset & 0.20 & 0.55 & 2.0 \\
+    contextual & category & PCA Eigenslang & 0.15 & 0.50 & 0.25 \\
+    contextual & balanced & raw & 0.40 & 0.70 & -- \\
+    contextual & balanced & mean offset & 0.30 & 0.60 & 2.0 \\
+    contextual & balanced & PCA Eigenslang & 0.30 & 0.65 & 0.25 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

@@ -1,0 +1,10 @@
+split,method,backend,representation_mode,candidate_mode,top_1_accuracy,top_3_accuracy,alpha
+train,raw,tfidf,term_paraphrase,balanced_distractors,0.0175,0.0351,
+train,mean_offset,tfidf,term_paraphrase,balanced_distractors,0.0175,0.0351,0.0
+train,eigenslang_pca,tfidf,term_paraphrase,balanced_distractors,0.0175,0.0877,0.25
+validation,raw,tfidf,term_paraphrase,balanced_distractors,0.1579,0.2105,
+validation,mean_offset,tfidf,term_paraphrase,balanced_distractors,0.1579,0.2105,0.0
+validation,eigenslang_pca,tfidf,term_paraphrase,balanced_distractors,0.3158,0.7368,0.25
+test,raw,tfidf,term_paraphrase,balanced_distractors,0.0,0.0,
+test,mean_offset,tfidf,term_paraphrase,balanced_distractors,0.0,0.0,0.0
+test,eigenslang_pca,tfidf,term_paraphrase,balanced_distractors,0.1,0.8,0.25
