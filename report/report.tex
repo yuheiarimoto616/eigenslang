@@ -29,7 +29,7 @@
 
 \begin{abstract}
 We study whether youth slang normalization can be represented as a low-dimensional direction in embedding space.
-we build a curated dataset of 96 slang--neutral pairs with context sentences and compare raw retrieval, a mean-offset baseline, and a PCA-based direction.
+We build a curated dataset of 96 slang--neutral pairs with context sentences and compare raw retrieval, a mean-offset baseline, and a PCA-based direction.
 We evaluate two formulations of the hypothesis:
 direct term/paraphrase offsets and context-preserving sentence offsets.
 After adding controlled candidate-set evaluation, the direct term/paraphrase formulation with sentence-transformer embeddings gives the best absolute retrieval performance,
@@ -251,6 +251,7 @@ Instead, the geometry appears diffuse and multi-factor.
 We also tested whether abbreviation-heavy items were making the dataset too heterogeneous for a single shared slang direction.
 This ablation was run on a separate merged dataset created by augmenting the primary 96-example dataset with 16 curated examples from the \emph{Gen Z words and Phrases Dataset} \citep{yeasmin2026kaggle}, yielding 112 rows in total.
 From that merged dataset, we removed 27 obvious shorthand or acronym-like items, such as \emph{IRL}, \emph{SMH}, \emph{G2G}, \emph{LMAO}, \emph{BFF}, and \emph{DM}, producing an 85-row abbreviation-filtered variant.
+The Kaggle-derived merged dataset did not improve the main sentence-transformer results and is therefore treated only as a robustness check.
 
 This ablation improved raw retrieval substantially, especially in the contextual formulation, which suggests that acronym expansion and slang normalization are not quite the same phenomenon.
 However, the PCA story did not change materially: even in this cleaner setting, the first principal component still explained only about 5.20\% of the variance in the term/paraphrase formulation and 6.16\% in the contextual formulation.
@@ -382,13 +383,20 @@ Conference}, pages 1557--1564.
 
 \section{Reproducibility Notes}
 All experiments in the current draft are based on local scripts in the project repository.
+Code, data-processing scripts, and experiment files are available at \url{https://github.com/yuheiarimoto616/eigenslang}.
 The cleaned dataset used in the main experiments is \texttt{data/processed/slang\_examples\_clean.csv}.
-The main summary table in \cref{tab:candidate-results} is based on:
+The main summary table in \cref{tab:candidate-results} is based on \texttt{report\_summary\_test\_metrics.csv}.
+The underlying sentence-transformer metric files and PCA spectrum files are in \texttt{results/tables/}.
+The most relevant files are:
 \begin{itemize}
-\item \texttt{report\_summary\_test\_metrics.csv}
-\item sentence-transformer term/paraphrase metrics for \texttt{all\_candidates}, \texttt{category\_candidates}, and \texttt{balanced\_distractors}
-\item sentence-transformer contextual-sentence metrics for \texttt{all\_candidates}, \texttt{category\_candidates}, and \texttt{balanced\_distractors}
-\item PCA spectrum files for the sentence-transformer term/paraphrase and contextual-sentence runs under \texttt{category\_candidates}
+\item \path{results/tables/baseline_metrics_sentence_transformers_all_minilm_l6_v2_term_paraphrase_all_candidates.csv}
+\item \path{results/tables/baseline_metrics_sentence_transformers_all_minilm_l6_v2_term_paraphrase_category_candidates.csv}
+\item \path{results/tables/baseline_metrics_sentence_transformers_all_minilm_l6_v2_term_paraphrase_balanced_distractors.csv}
+\item \path{results/tables/baseline_metrics_sentence_transformers_all_minilm_l6_v2_contextual_sentence_all_candidates.csv}
+\item \path{results/tables/baseline_metrics_sentence_transformers_all_minilm_l6_v2_contextual_sentence_category_candidates.csv}
+\item \path{results/tables/baseline_metrics_sentence_transformers_all_minilm_l6_v2_contextual_sentence_balanced_distractors.csv}
+\item \path{results/tables/pca_spectrum_sentence_transformers_all_minilm_l6_v2_term_paraphrase_category_candidates.csv}
+\item \path{results/tables/pca_spectrum_sentence_transformers_all_minilm_l6_v2_contextual_sentence_category_candidates.csv}
 \end{itemize}
 
 \section{Ablation and Qualitative Details}
