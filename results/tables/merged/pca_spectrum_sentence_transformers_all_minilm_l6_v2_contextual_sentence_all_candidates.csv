@@ -1,0 +1,11 @@
+backend,representation_mode,candidate_mode,component,explained_variance_ratio,cumulative_explained_variance_ratio
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,all_candidates,1,0.04975322633981705,0.04975322633981705
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,all_candidates,2,0.04429010674357414,0.09404333308339119
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,all_candidates,3,0.04351664334535599,0.13755997642874718
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,all_candidates,4,0.038232315331697464,0.17579229176044464
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,all_candidates,5,0.036285288631916046,0.2120775803923607
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,all_candidates,6,0.03564438968896866,0.24772197008132935
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,all_candidates,7,0.032929107546806335,0.2806510776281357
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,all_candidates,8,0.030873019248247147,0.31152409687638283
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,all_candidates,9,0.02976234443485737,0.3412864413112402
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,all_candidates,10,0.02847529575228691,0.3697617370635271

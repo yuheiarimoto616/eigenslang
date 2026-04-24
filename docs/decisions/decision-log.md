@@ -110,3 +110,29 @@ Reason:
 - The current implementation computes slang-sentence embeddings minus neutralized-sentence embeddings.
 - This divergence is methodologically defensible because the dataset contains polysemous and phrase-level slang.
 - Comparing both variants will make the final report more honest and stronger.
+
+## D11. Use the Kaggle dataset as curated augmentation, not as a replacement
+Decision:
+
+- Do not replace the main 96-example cleaned dataset with the Kaggle dataset.
+- If Kaggle examples are used, add them only through a curated merge of high-quality, non-duplicate rows.
+- Keep the original 96-example dataset as the primary evaluation set unless the merged dataset clearly improves the results.
+
+Reason:
+
+- The imported Kaggle CSV contained only 204 rows and 90 unique terms, with many entries collapsing into the coarse `other` category after mapping.
+- A Kaggle-only cleaned dataset was smaller than the current main dataset and did not produce stronger evidence for PCA Eigenslang.
+- A curated 16-row Kaggle augmentation produced a 112-row merged dataset, but the main sentence-transformer results did not improve overall and the PCA variance story remained weak.
+- The Kaggle source is therefore useful as a robustness check and as a small source of additional examples, but not as a strong replacement for the current main dataset.
+
+## D12. Use abbreviation removal as an ablation, not as the new default dataset
+Decision:
+
+- Build and evaluate an abbreviation-filtered variant of the merged dataset.
+- Treat the filtered dataset as an ablation that helps interpret failure modes, not as an automatic replacement for the main dataset.
+
+Reason:
+
+- Removing 27 abbreviation-like rows from the 112-row merged dataset produced an 85-row dataset and improved raw retrieval substantially in several settings, especially for contextual sentence representations.
+- However, PCA Eigenslang still did not become a robust winner, and the first principal component still explained only about 5--6\% of the variance.
+- This suggests that abbreviation-heavy items were contributing noise, but they were not the only reason the single-direction hypothesis remained weak.

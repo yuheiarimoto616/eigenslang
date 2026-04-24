@@ -1,0 +1,11 @@
+backend,representation_mode,candidate_mode,component,explained_variance_ratio,cumulative_explained_variance_ratio
+sentence-transformers/all-MiniLM-L6-v2,term_paraphrase,all_candidates,1,0.05997326970100403,0.05997326970100403
+sentence-transformers/all-MiniLM-L6-v2,term_paraphrase,all_candidates,2,0.04818174988031387,0.1081550195813179
+sentence-transformers/all-MiniLM-L6-v2,term_paraphrase,all_candidates,3,0.04616766422986984,0.15432268381118774
+sentence-transformers/all-MiniLM-L6-v2,term_paraphrase,all_candidates,4,0.04188850522041321,0.19621118903160095
+sentence-transformers/all-MiniLM-L6-v2,term_paraphrase,all_candidates,5,0.04065445438027382,0.23686564341187477
+sentence-transformers/all-MiniLM-L6-v2,term_paraphrase,all_candidates,6,0.040393345057964325,0.2772589884698391
+sentence-transformers/all-MiniLM-L6-v2,term_paraphrase,all_candidates,7,0.03728730231523514,0.31454629078507423
+sentence-transformers/all-MiniLM-L6-v2,term_paraphrase,all_candidates,8,0.03470596298575401,0.34925225377082825
+sentence-transformers/all-MiniLM-L6-v2,term_paraphrase,all_candidates,9,0.03306569531559944,0.3823179490864277
+sentence-transformers/all-MiniLM-L6-v2,term_paraphrase,all_candidates,10,0.03147270530462265,0.41379065439105034

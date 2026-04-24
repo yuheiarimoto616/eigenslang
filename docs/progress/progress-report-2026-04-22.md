@@ -421,3 +421,77 @@ Reason:
 - the dataset is no longer the only blocker
 - the current retrieval setup is still very challenging and may be obscuring any real offset structure
 - the project now needs better evaluation design in addition to continued dataset refinement
+
+## Kaggle Dataset Comparison
+We imported an additional external source from Kaggle:
+
+- `data/raw/external/gen_zz_words.csv`
+
+This source was mapped with:
+
+- `scripts/clean_kaggle_genz_dataset.py`
+
+and first evaluated as a Kaggle-only cleaned dataset:
+
+- `data/processed/slang_examples_clean_kaggle.csv`
+
+That Kaggle-based cleaned dataset ended up with only 75 rows after filtering and did not improve the overall experimental story.
+Sentence-transformer results were still mixed, and PCA Eigenslang again failed to provide a robust gain.
+
+We then tested a curated merge strategy:
+
+- `scripts/build_merged_dataset.py`
+- `data/processed/slang_examples_clean_merged.csv`
+
+This merged 16 carefully selected Kaggle rows into the current 96-example dataset, producing a 112-row dataset.
+The added Kaggle terms included items such as `Bounce`, `DM`, `Dope`, `Finesse`, `High-Key`, `Shooketh`, and `Unbothered`.
+
+Main outcome of the merged rerun:
+
+- The merged dataset did not improve the core sentence-transformer results overall.
+- In the proposal-faithful `term_paraphrase` setting, the merged dataset was weaker than the original 96-example dataset under `all_candidates`, `category_candidates`, and `balanced_distractors`.
+- In the `contextual_sentence` setting, mean offset gained slightly in some controlled settings, but PCA still did not become meaningfully stronger.
+- PCA variance explained remained low at about 5\% for PC1 in both formulations.
+
+Interpretation:
+
+- The Kaggle data are usable as a secondary comparison source and as a small curated augmentation source.
+- However, they do not currently justify replacing the main dataset.
+- For the report, the strongest framing is to keep the original 96-example dataset as the main experiment set and mention the Kaggle rerun and curated merge as robustness checks that did not materially change the conclusion.
+
+## Abbreviation-Filtered Ablation
+We also tested whether abbreviation-heavy items were making the slang-normalization task too heterogeneous for a single Eigenslang direction.
+
+Relevant files:
+
+- `scripts/build_abbreviation_filtered_dataset.py`
+- `data/processed/slang_examples_clean_no_abbrev.csv`
+- `data/processed/slang_examples_clean_no_abbrev_report.txt`
+
+This ablation removed 27 abbreviation-like rows from the 112-row merged dataset, producing an 85-row filtered dataset.
+Removed examples included items such as `TFW`, `IRL`, `Smh`, `G2G`, `LMAO`, `BFF`, `2EZ`, `AFPOE`, and `DM`.
+
+Main result:
+
+- Removing abbreviation-like items improved raw retrieval noticeably.
+- In the proposal-faithful `term_paraphrase` setting:
+  - `all_candidates` improved from Top-1 `0.0435` / Top-3 `0.1739` to `0.1765` / `0.2941`
+  - `category_candidates` improved from `0.3043` / `0.6087` to `0.4118` / `0.5294`
+- In the `contextual_sentence` setting:
+  - `all_candidates` Top-3 improved from `0.0435` to `0.2353`
+  - `category_candidates` improved from `0.2174` / `0.4348` to `0.4118` / `0.7059`
+  - `balanced_distractors` improved from `0.3913` / `0.6957` to `0.6471` / `0.8824`
+
+Interpretation:
+
+- The dataset becomes easier and more internally consistent when abbreviation-like items are removed.
+- This supports the idea that acronym expansion and slang normalization are not exactly the same phenomenon and should not necessarily be forced into one shared geometric direction.
+- However, PCA Eigenslang still did not become the strongest method, and the PCA variance story remained weak:
+  - term/paraphrase PC1 explained variance stayed around `0.0520`
+  - contextual sentence PC1 explained variance stayed around `0.0616`
+
+So the abbreviation ablation is useful evidence for the report:
+
+- it shows that dataset composition matters
+- it strengthens the argument that heterogeneity is a real issue
+- but it does not overturn the main conclusion that a single dominant global Eigenslang direction is weak at best

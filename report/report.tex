@@ -36,6 +36,7 @@ direct term/paraphrase offsets and context-preserving sentence offsets.
 After adding controlled candidate-set evaluation, the direct term/paraphrase formulation with sentence-transformer embeddings gives the best absolute retrieval performance,
 while PCA provides only small and unstable gains.
 Across both formulations, the first principal component explains only about 5\% of the variance in slang--neutral difference vectors.
+An abbreviation-filtered ablation improves raw retrieval substantially, which suggests that dataset heterogeneity matters, but it still does not produce strong evidence for a single global PCA direction.
 Overall, we find weak evidence for a single shared slang direction.
 The main lesson is that representation choice and evaluation design matter substantially,
 and that a single global direction is at best an incomplete explanation of slang normalization.
@@ -59,13 +60,7 @@ This is a suitable course-project question because both positive and negative re
 if the leading direction helps retrieval, that supports the hypothesis;
 if not, that suggests slang may be too heterogeneous or context-specific for a single global offset.
 
-Our main contributions are:
-\begin{itemize}
-\item a curated dataset of 96 slang examples with neutral targets and context;
-\item two experimentally distinct formulations of the offset hypothesis, one proposal-faithful and one context-preserving;
-\item a comparison of raw retrieval, mean-offset, and PCA-based Eigenslang baselines;
-\item an analysis of what the current results do and do not support.
-\end{itemize}
+Our contribution is a curated 96-example dataset, a comparison of two offset formulations, and a controlled test showing that representation choice and dataset composition matter more than a single shared PCA direction.
 
 \section{Related Work}
 Our work is motivated by three strands of literature.
@@ -80,8 +75,8 @@ More broadly, the idea that meaning can be organized along approximately linear 
 Our project adopts this style of reasoning, but targets slang normalization rather than demographic bias or classic analogy tasks.
 
 Third, there is prior work on slang generation and transformation.
-\citet{sun2021computational} propose a computational framework for slang generation, which is related to our project because both generation and normalization assume some systematic relation between standard and non-standard forms.
-However, our problem is simpler and more controlled: we study retrieval-based normalization rather than full generative transformation.
+\citet{sun2021computational} propose a computational framework for slang generation.
+Our problem is simpler and more controlled: we study retrieval-based normalization rather than generation.
 
 For representations, our original proposal suggested starting with fastText because subword structure can help with rare or novel forms \citep{bojanowski2017enriching}.
 In the current implementation, we instead compare TF--IDF and a sentence-transformer backend based on Sentence-BERT \citep{reimers2019sentence}, because many of our examples are phrase-level or context-dependent.
@@ -93,15 +88,8 @@ We began with a small manually written dataset and then expanded it using a clea
 The external dataset was used as a source pool rather than as trusted final data.
 We imported raw rows, mapped them into our schema, filtered duplicates and low-quality entries, and selected external candidates conservatively.
 
-The resulting cleaned dataset contains 96 examples:
-\begin{itemize}
-\item 60 manually written examples;
-\item 36 selected external examples;
-\item a final schema including slang term, context sentence, neutral expression, neutral paraphrase, and neutral sentence.
-\end{itemize}
-
-The dataset also stores category labels such as \texttt{judgment}, \texttt{emotion}, \texttt{online}, \texttt{intensifier}, and \texttt{dating\_social}.
-These categories are currently somewhat coarse, but they are useful for later error analysis and for future improvements to candidate-set design.
+The resulting cleaned dataset contains 96 examples and serves as our primary evaluation set: 60 manual examples and 36 selected external examples, with fields for slang term, context sentence, neutral expression, neutral paraphrase, and neutral sentence.
+It also stores coarse category labels such as \texttt{judgment}, \texttt{emotion}, \texttt{online}, and \texttt{dating\_social}.
 
 \subsection{Why We Added Neutral Fields}
 The original project idea only required a slang item, a context, and a neutral paraphrase.
@@ -196,16 +184,8 @@ The scaling factor $\alpha$ is tuned on validation data.
 We split the cleaned dataset into train, validation, and test sets with a deterministic 60/20/20 split.
 For each split, we evaluate raw retrieval, mean offset, and PCA Eigenslang under both representation modes and both embedding backends.
 
-The current experiment is therefore a four-way representation/embedding comparison:
-\begin{itemize}
-\item TF--IDF + contextual sentence;
-\item TF--IDF + term/paraphrase;
-\item sentence-transformer + contextual sentence;
-\item sentence-transformer + term/paraphrase.
-\end{itemize}
-
 \subsection{Main Quantitative Results}
-\cref{tab:candidate-results} summarizes the sentence-transformer test-set results across candidate-set settings.
+\cref{tab:candidate-results} summarizes the sentence-transformer test-set results on the primary 96-example dataset across candidate-set settings.
 We focus on sentence-transformers in the main table because TF--IDF is uniformly near zero and does not affect the qualitative conclusions.
 
 \begin{table}
@@ -253,14 +233,6 @@ Third, the contextual sentence formulation shows the only small positive effect 
 With sentence-transformers, raw retrieval achieves Top-1 = 0.00 and Top-3 = 0.05 in that setting, while PCA reaches Top-1 = 0.05 and Top-3 = 0.10.
 Once we move to category-restricted or balanced candidate sets, that PCA advantage disappears and raw retrieval is again stronger.
 
-\subsection{Qualitative Interpretation}
-The current results suggest that representation choice matters as much as, or more than, the PCA hypothesis itself.
-The term/paraphrase representation is better for absolute retrieval, likely because it is closer to the actual label space.
-The contextual representation is noisier and only gives a small PCA gain under the most difficult evaluation setup.
-
-One interpretation is that slangness is not a single universal property at the lexical level, but a mixture of category-specific effects, lexical novelty, and discourse function.
-Another is that some apparent PCA gains can be artifacts of evaluation difficulty rather than evidence for a strong shared direction.
-
 \subsection{PCA Variance Analysis}
 To test the Eigenslang hypothesis more directly, we also measured how much variance the first principal component explains in the training difference vectors.
 For the sentence-transformer runs with category-restricted candidates, the first component explains 5.28\% of the variance in the term/paraphrase formulation and 5.45\% in the contextual formulation.
@@ -270,11 +242,19 @@ These numbers are important because they show that the slang--neutral difference
 If a dominant Eigenslang direction existed, we would expect the first principal component to explain much more of the total variance.
 Instead, the geometry appears diffuse and multi-factor.
 
+\subsection{Ablation on Abbreviations}
+We also tested whether abbreviation-heavy items were making the dataset too heterogeneous for a single shared slang direction.
+Starting from a 112-row merged dataset, we removed 27 obvious shorthand or acronym-like items, such as \emph{IRL}, \emph{SMH}, \emph{G2G}, \emph{LMAO}, \emph{BFF}, and \emph{DM}, producing an 85-row abbreviation-filtered dataset.
+
+This ablation improved raw retrieval substantially, especially in the contextual formulation, which suggests that acronym expansion and slang normalization are not quite the same phenomenon.
+However, the PCA story did not change materially: even in this cleaner setting, the first principal component still explained only about 5.20\% of the variance in the term/paraphrase formulation and 6.16\% in the contextual formulation.
+Detailed qualitative examples and ablation numbers are given in the appendix.
+
 \section{Discussion and Future Work}\label{sec:discussion}
 Our current conclusion is cautious.
 We do \emph{not} have strong evidence that a robust, universal Eigenslang direction exists.
 The direct term/paraphrase formulation performs best overall, but PCA does not improve it.
-The contextual sentence formulation produces a small PCA gain, but the absolute numbers remain low.
+The contextual sentence formulation only shows a small PCA gain in the harshest all-candidate setting.
 
 This still constitutes a meaningful course project result.
 The project now demonstrates:
@@ -289,6 +269,7 @@ The project now demonstrates:
 The strongest part of the project is methodological clarity.
 We started from a proposal-faithful hypothesis, discovered a genuine implementation issue caused by polysemy and phrase-level slang, and turned that into an explicit comparison between term/paraphrase and contextual sentence offsets.
 This makes the project more rigorous than if we had silently drifted from the proposal.
+The later candidate-set experiments and abbreviation-filtered ablation also made the negative result more convincing by showing that weak PCA behavior persists even after making the task cleaner and easier.
 
 \paragraph{Weaknesses.}
 The main weakness is dataset scale.
@@ -300,7 +281,7 @@ Finally, we have not yet tested fastText, which was part of the original proposa
 With more time, the next three steps would be:
 \begin{itemize}
 \item add a fastText baseline and compare it directly against sentence-transformers under the same candidate sets;
-\item expand the clean dataset further and rebalance categories;
+\item expand the clean dataset further while keeping lexical slang and acronym-like shorthand more clearly separated;
 \item add per-category error analysis and more qualitative examples of where mean offset helps or fails.
 \end{itemize}
 
@@ -310,10 +291,12 @@ At the same time, our current results suggest that evaluation design and data qu
 \section{Conclusion}
 We tested whether youth slang normalization has a shared low-dimensional structure in embedding space.
 Using a cleaned 96-example dataset, we compared TF--IDF and sentence-transformer embeddings, raw retrieval, mean-offset baselines, and PCA-based Eigenslang directions under both direct term/paraphrase and contextual sentence formulations.
+We also tested a Kaggle-derived augmentation and an abbreviation-filtered ablation to see whether data composition changed the conclusion.
 
 The current evidence is mixed.
 The term/paraphrase formulation performs better overall, especially under controlled candidate sets, but PCA does not help it.
 The contextual formulation shows a small PCA gain only in the harshest all-candidate setting, and that gain disappears under fairer evaluation.
+Removing abbreviations improves raw retrieval substantially, which shows that dataset heterogeneity matters, but even in that cleaner setting PCA remains weak and the leading component still explains only a small fraction of the variance.
 Combined with the PCA variance analysis, our best current conclusion is that a single global Eigenslang direction is at most a weak and representation-dependent phenomenon.
 This is still informative: it suggests that slang normalization may require category structure, richer context, or more local transformations than a single shared offset can provide.
 
@@ -350,6 +333,13 @@ Yuji Matsumoto, Hideki Nakayama, and Tatsuya Harada.
 \newblock 2019.
 \newblock Slang feature extraction by analysing topic change on social media.
 \newblock \emph{CAAI Transactions on Intelligence Technology}.
+
+\bibitem[Yeasmin(2026)]{yeasmin2026kaggle}
+Tawfiya Easmin.
+\newblock 2026.
+\newblock \emph{Gen Z words and Phrases Dataset}.
+\newblock \url{https://www.kaggle.com/datasets/tawfiayeasmin/gen-z-words-and-phrases-dataset}.
+Accessed 2026-04-24.
 
 \bibitem[Reimers and Gurevych(2019)]{reimers2019sentence}
 Nils Reimers and Iryna Gurevych.
@@ -394,5 +384,21 @@ The main summary table in \cref{tab:candidate-results} is based on:
 \item sentence-transformer contextual-sentence metrics for \texttt{all\_candidates}, \texttt{category\_candidates}, and \texttt{balanced\_distractors}
 \item PCA spectrum files for the sentence-transformer term/paraphrase and contextual-sentence runs under \texttt{category\_candidates}
 \end{itemize}
+
+\section{Ablation and Qualitative Details}
+We also tested a small Kaggle-derived augmentation based on the \emph{Gen Z words and Phrases Dataset} \citep{yeasmin2026kaggle}, but it did not improve the main experimental story and is therefore treated as a robustness check rather than a replacement dataset.
+
+For the abbreviation-filtered ablation, the main changes were:
+\begin{itemize}
+\item contextual category-candidates improved from 0.22 / 0.43 to 0.41 / 0.71 in Top-1 / Top-3;
+\item contextual balanced-distractors improved from 0.39 / 0.70 to 0.65 / 0.88;
+\item term/paraphrase all-candidates improved from 0.04 / 0.17 to 0.18 / 0.29.
+\end{itemize}
+
+Qualitatively, raw retrieval often already captures the intended neutral meaning.
+For example, \emph{fire} retrieves \emph{excellent}, \emph{rizz} retrieves \emph{charisma}, and \emph{Normalize} retrieves \emph{Make something the norm.}
+By contrast, PCA usually only reshuffles nearby candidates.
+For \emph{fire}, PCA moves \emph{excellent} from second to first, which is a small improvement.
+But for \emph{hits different}, PCA demotes the correct target \emph{feels especially good} below more generic positive labels, and for \emph{ick}, PCA removes the correct target from the top three entirely.
 
 \end{document}

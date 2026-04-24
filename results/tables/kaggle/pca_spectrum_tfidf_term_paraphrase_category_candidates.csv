@@ -1,0 +1,11 @@
+backend,representation_mode,candidate_mode,component,explained_variance_ratio,cumulative_explained_variance_ratio
+tfidf,term_paraphrase,category_candidates,1,0.041420499398617416,0.041420499398617416
+tfidf,term_paraphrase,category_candidates,2,0.0345228733880713,0.07594337278668872
+tfidf,term_paraphrase,category_candidates,3,0.02916496257341129,0.10510833536010002
+tfidf,term_paraphrase,category_candidates,4,0.027236341246311867,0.1323446766064119
+tfidf,term_paraphrase,category_candidates,5,0.025434671200899855,0.15777934780731173
+tfidf,term_paraphrase,category_candidates,6,0.02511316652040536,0.18289251432771708
+tfidf,term_paraphrase,category_candidates,7,0.02344394308628603,0.2063364574140031
+tfidf,term_paraphrase,category_candidates,8,0.023443943086286025,0.22978040050028914
+tfidf,term_paraphrase,category_candidates,9,0.023443943086286025,0.25322434358657514
+tfidf,term_paraphrase,category_candidates,10,0.02344394308628602,0.27666828667286114

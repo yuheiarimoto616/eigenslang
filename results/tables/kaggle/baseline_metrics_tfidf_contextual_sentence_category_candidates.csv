@@ -1,0 +1,10 @@
+split,method,backend,representation_mode,candidate_mode,top_1_accuracy,top_3_accuracy,alpha
+train,raw,tfidf,contextual_sentence,category_candidates,0.1111,0.4,
+train,mean_offset,tfidf,contextual_sentence,category_candidates,0.1111,0.4,0.0
+train,eigenslang_pca,tfidf,contextual_sentence,category_candidates,0.1111,0.4,0.0
+validation,raw,tfidf,contextual_sentence,category_candidates,0.3333,0.4667,
+validation,mean_offset,tfidf,contextual_sentence,category_candidates,0.3333,0.4667,0.0
+validation,eigenslang_pca,tfidf,contextual_sentence,category_candidates,0.3333,0.4667,0.0
+test,raw,tfidf,contextual_sentence,category_candidates,0.2,0.4667,
+test,mean_offset,tfidf,contextual_sentence,category_candidates,0.2,0.4667,0.0
+test,eigenslang_pca,tfidf,contextual_sentence,category_candidates,0.2,0.4667,0.0

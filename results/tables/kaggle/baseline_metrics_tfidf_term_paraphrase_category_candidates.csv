@@ -1,0 +1,10 @@
+split,method,backend,representation_mode,candidate_mode,top_1_accuracy,top_3_accuracy,alpha
+train,raw,tfidf,term_paraphrase,category_candidates,0.1556,0.4667,
+train,mean_offset,tfidf,term_paraphrase,category_candidates,0.1556,0.4667,0.0
+train,eigenslang_pca,tfidf,term_paraphrase,category_candidates,0.1556,0.4667,0.0
+validation,raw,tfidf,term_paraphrase,category_candidates,0.0667,0.2667,
+validation,mean_offset,tfidf,term_paraphrase,category_candidates,0.0667,0.2667,0.0
+validation,eigenslang_pca,tfidf,term_paraphrase,category_candidates,0.0667,0.2667,0.0
+test,raw,tfidf,term_paraphrase,category_candidates,0.2,0.4,
+test,mean_offset,tfidf,term_paraphrase,category_candidates,0.2,0.4,0.0
+test,eigenslang_pca,tfidf,term_paraphrase,category_candidates,0.2,0.4,0.0

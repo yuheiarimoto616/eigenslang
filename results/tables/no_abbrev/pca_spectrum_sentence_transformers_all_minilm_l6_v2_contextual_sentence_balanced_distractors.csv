@@ -1,0 +1,11 @@
+backend,representation_mode,candidate_mode,component,explained_variance_ratio,cumulative_explained_variance_ratio
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,1,0.06156241148710251,0.06156241148710251
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,2,0.054302532225847244,0.11586494371294975
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,3,0.04955226182937622,0.16541720554232597
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,4,0.044130850583314896,0.20954805612564087
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,5,0.04228956252336502,0.2518376186490059
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,6,0.04054922237992287,0.29238684102892876
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,7,0.038723789155483246,0.331110630184412
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,8,0.036528412252664566,0.36763904243707657
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,9,0.03445114567875862,0.4020901881158352
+sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,10,0.03193121775984764,0.43402140587568283

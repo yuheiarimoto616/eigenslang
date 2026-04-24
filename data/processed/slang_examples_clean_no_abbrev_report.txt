@@ -1,0 +1,31 @@
+Eigenslang Abbreviation-Filtered Dataset Report
+
+Input rows: 112
+Filtered rows: 85
+Removed abbreviation-like rows: 27
+
+Removed terms:
+npc, fr, af, bffr, TFW, IRL, Smh, G2G, CSL, IMOH, DTR, CU, CUL8R, GG, GN, LMAO, MTE, ROFLOL, TTFN, U4E, WTG, TIME, BFF, 1432, 2EZ, AFPOE, DM
+
+Filtered category counts:
+category
+other                  14
+emotion                13
+judgment               10
+action_event            9
+dating_social           8
+appearance_style        8
+performance             7
+intensifier             7
+online                  5
+agreement_discourse     4
+
+Removed category counts:
+category
+online                 8
+intensifier            6
+judgment               4
+agreement_discourse    4
+emotion                2
+dating_social          2
+performance            1

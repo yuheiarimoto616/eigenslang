@@ -1,0 +1,11 @@
+backend,representation_mode,candidate_mode,component,explained_variance_ratio,cumulative_explained_variance_ratio
+tfidf,contextual_sentence,category_candidates,1,0.03554267484551148,0.03554267484551148
+tfidf,contextual_sentence,category_candidates,2,0.032442841638963146,0.06798551648447462
+tfidf,contextual_sentence,category_candidates,3,0.029199487126940878,0.0971850036114155
+tfidf,contextual_sentence,category_candidates,4,0.028922830532961435,0.12610783414437693
+tfidf,contextual_sentence,category_candidates,5,0.02781419070580383,0.15392202485018075
+tfidf,contextual_sentence,category_candidates,6,0.02764222024796092,0.18156424509814167
+tfidf,contextual_sentence,category_candidates,7,0.026904059870255587,0.20846830496839727
+tfidf,contextual_sentence,category_candidates,8,0.026620803441235505,0.23508910840963276
+tfidf,contextual_sentence,category_candidates,9,0.026485530070682634,0.26157463848031537
+tfidf,contextual_sentence,category_candidates,10,0.025695877944265758,0.2872705164245811

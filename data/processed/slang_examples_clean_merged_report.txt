@@ -1,0 +1,27 @@
+Eigenslang Merged Dataset Report
+
+Base rows: 96
+Curated Kaggle rows added: 16
+Merged rows: 112
+
+Added Kaggle terms:
+Bounce, Cancelled, DM, Dope, Finesse, Gassed Up, Gucci, High-Key, Hypebeast, Living Rent-Free, Normalize, Receipts, Shooketh, Thirsty, Tight, Unbothered
+
+Merged category counts:
+category
+emotion                15
+judgment               14
+other                  14
+intensifier            13
+online                 13
+dating_social          10
+action_event            9
+performance             8
+agreement_discourse     8
+appearance_style        8
+
+Merged source counts:
+source_name
+project_manual_annotation                  60
+MLBtrio/genz-slang-dataset                 36
+Kaggle: Gen Z words and Phrases Dataset    16

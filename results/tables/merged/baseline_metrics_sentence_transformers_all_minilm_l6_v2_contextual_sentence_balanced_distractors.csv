@@ -1,0 +1,10 @@
+split,method,backend,representation_mode,candidate_mode,top_1_accuracy,top_3_accuracy,alpha
+train,raw,sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,0.4328,0.7463,
+train,mean_offset,sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,0.4776,0.7463,1.5
+train,eigenslang_pca,sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,0.4328,0.7463,0.0
+validation,raw,sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,0.4545,0.8636,
+validation,mean_offset,sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,0.6364,0.9091,1.5
+validation,eigenslang_pca,sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,0.4545,0.8636,0.0
+test,raw,sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,0.3913,0.6957,
+test,mean_offset,sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,0.4348,0.6087,1.5
+test,eigenslang_pca,sentence-transformers/all-MiniLM-L6-v2,contextual_sentence,balanced_distractors,0.3913,0.6957,0.0
