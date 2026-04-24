@@ -29,7 +29,6 @@
 
 \begin{abstract}
 We study whether youth slang normalization can be represented as a low-dimensional direction in embedding space.
-Starting from a course-project proposal that hypothesized an ``Eigenslang'' vector,
 we build a curated dataset of 96 slang--neutral pairs with context sentences and compare raw retrieval, a mean-offset baseline, and a PCA-based direction.
 We evaluate two formulations of the hypothesis:
 direct term/paraphrase offsets and context-preserving sentence offsets.
@@ -78,7 +77,7 @@ Third, there is prior work on slang generation and transformation.
 \citet{sun2021computational} propose a computational framework for slang generation.
 Our problem is simpler and more controlled: we study retrieval-based normalization rather than generation.
 
-For representations, our original proposal suggested starting with fastText because subword structure can help with rare or novel forms \citep{bojanowski2017enriching}.
+FastText is a natural point of comparison because subword structure can help with rare or novel forms \citep{bojanowski2017enriching}.
 In the current implementation, we instead compare TF--IDF and a sentence-transformer backend based on Sentence-BERT \citep{reimers2019sentence}, because many of our examples are phrase-level or context-dependent.
 This design choice became especially important once we observed that isolated word-level paraphrases and full context sentences can behave differently.
 
@@ -92,15 +91,20 @@ The resulting cleaned dataset contains 96 examples and serves as our primary eva
 It also stores coarse category labels such as \texttt{judgment}, \texttt{emotion}, \texttt{online}, and \texttt{dating\_social}.
 
 \subsection{Why We Added Neutral Fields}
-The original project idea only required a slang item, a context, and a neutral paraphrase.
-During implementation, that turned out to be insufficient.
-For example, a neutral paraphrase such as \emph{received far more criticism than support} is useful semantically, but direct string substitution can produce awkward neutralized sentences.
-To support both proposal-faithful and context-preserving experiments, we introduced:
+One neutral target is not enough for this task, because the same example is used in two different ways.
+For direct term/paraphrase experiments, we want a short canonical normalization target.
+For contextual experiments, we want a full sentence that reads naturally after the slang expression is removed.
+These are not always the same object.
+
+For example, a descriptive gloss such as \emph{received far more criticism than support} is a reasonable semantic target, but inserting it directly into a sentence can produce awkward text.
+We therefore store three neutral-side fields:
 \begin{itemize}
-\item \texttt{neutral\_expression}: a short neutral word or phrase;
-\item \texttt{neutral\_paraphrase}: a fuller descriptive gloss;
-\item \texttt{neutral\_sentence}: an explicitly neutralized sentence.
+\item \texttt{neutral\_expression}: a short neutral word or phrase used for direct term/paraphrase offsets;
+\item \texttt{neutral\_paraphrase}: a fuller descriptive gloss that captures the intended meaning;
+\item \texttt{neutral\_sentence}: a manually neutralized sentence used for context-preserving comparisons.
 \end{itemize}
+
+This distinction lets us evaluate both lexical and contextual formulations without forcing one neutral representation to serve both purposes poorly.
 
 \subsection{Task Definition}
 We formulate slang normalization as retrieval.
@@ -110,12 +114,13 @@ We report Top-1 and Top-3 retrieval accuracy.
 We report three candidate-set settings.
 In \texttt{all\_candidates}, the correct neutral target is ranked against all neutral labels in the dataset.
 In \texttt{category\_candidates}, the candidate pool is restricted to the example's category.
-In \texttt{balanced\_distractors}, we construct a smaller controlled set with the gold label and a balanced sample of distractors.
+In \texttt{balanced\_distractors}, we construct a smaller controlled candidate set consisting of the correct neutral target plus a fixed-size sample of distractors, rather than the full dataset.
+This creates a setting that is still competitive, but less dominated by brute-force search over all labels.
 These settings let us distinguish between semantic failure and evaluation difficulty.
 
 \section{Methods}
 \subsection{Two Offset Formulations}
-Our proposal described the basic difference vector as
+We define the basic difference vector as
 \[
 \mathbf{d}_i = \mathbf{s}_i - \mathbf{n}_i,
 \]
@@ -124,7 +129,7 @@ where $\mathbf{s}_i$ is a slang embedding and $\mathbf{n}_i$ is the embedding of
 In implementation, we evaluate two versions of this idea.
 
 \paragraph{Term/paraphrase offset.}
-This is the proposal-faithful formulation:
+This is the direct formulation:
 \[
 \mathbf{d}_i =
 \operatorname{Embed}(\text{slang term})
@@ -224,7 +229,7 @@ Three points matter most.
 First, TF--IDF is clearly too weak for this task.
 This is not surprising, since many of the examples depend on semantic nuance rather than surface-level lexical overlap.
 
-Second, the proposal-faithful term/paraphrase formulation with a sentence-transformer backend gives the best absolute performance.
+Second, the direct term/paraphrase formulation with a sentence-transformer backend gives the best absolute performance.
 Under the more controlled candidate sets, it reaches Top-1 = 0.35 and Top-3 = 0.70 in the category-restricted setting, and Top-1 = 0.45 and Top-3 = 0.75 with balanced distractors.
 These results are much stronger than the original all-candidate numbers, which shows that evaluation design matters substantially.
 However, PCA Eigenslang still does not improve over raw retrieval in this formulation.
@@ -244,7 +249,8 @@ Instead, the geometry appears diffuse and multi-factor.
 
 \subsection{Ablation on Abbreviations}
 We also tested whether abbreviation-heavy items were making the dataset too heterogeneous for a single shared slang direction.
-Starting from a 112-row merged dataset, we removed 27 obvious shorthand or acronym-like items, such as \emph{IRL}, \emph{SMH}, \emph{G2G}, \emph{LMAO}, \emph{BFF}, and \emph{DM}, producing an 85-row abbreviation-filtered dataset.
+This ablation was run on a separate merged dataset created by augmenting the primary 96-example dataset with 16 curated examples from the \emph{Gen Z words and Phrases Dataset} \citep{yeasmin2026kaggle}, yielding 112 rows in total.
+From that merged dataset, we removed 27 obvious shorthand or acronym-like items, such as \emph{IRL}, \emph{SMH}, \emph{G2G}, \emph{LMAO}, \emph{BFF}, and \emph{DM}, producing an 85-row abbreviation-filtered variant.
 
 This ablation improved raw retrieval substantially, especially in the contextual formulation, which suggests that acronym expansion and slang normalization are not quite the same phenomenon.
 However, the PCA story did not change materially: even in this cleaner setting, the first principal component still explained only about 5.20\% of the variance in the term/paraphrase formulation and 6.16\% in the contextual formulation.
@@ -267,15 +273,15 @@ The project now demonstrates:
 
 \paragraph{Strengths.}
 The strongest part of the project is methodological clarity.
-We started from a proposal-faithful hypothesis, discovered a genuine implementation issue caused by polysemy and phrase-level slang, and turned that into an explicit comparison between term/paraphrase and contextual sentence offsets.
-This makes the project more rigorous than if we had silently drifted from the proposal.
+We started from a simple offset hypothesis, discovered a genuine implementation issue caused by polysemy and phrase-level slang, and turned that into an explicit comparison between term/paraphrase and contextual sentence offsets.
+This makes the project more rigorous than if we had assumed one representation choice was obviously correct.
 The later candidate-set experiments and abbreviation-filtered ablation also made the negative result more convincing by showing that weak PCA behavior persists even after making the task cleaner and easier.
 
 \paragraph{Weaknesses.}
 The main weakness is dataset scale.
 Even after cleaning and expansion, the final test split is still small.
 Some neutral sentences are also only approximately natural, and category labels are somewhat coarse.
-Finally, we have not yet tested fastText, which was part of the original proposal and could be informative for morphologically novel slang.
+Finally, we have not yet tested fastText, which could still be informative for morphologically novel slang.
 
 \paragraph{What we would do next.}
 With more time, the next three steps would be:
@@ -285,7 +291,7 @@ With more time, the next three steps would be:
 \item add per-category error analysis and more qualitative examples of where mean offset helps or fails.
 \end{itemize}
 
-We would still consider fastText, as originally proposed, because subword information could be useful for rare or morphologically novel slang.
+We would still consider fastText because subword information could be useful for rare or morphologically novel slang.
 At the same time, our current results suggest that evaluation design and data quality were more important bottlenecks than the absence of one particular embedding model.
 
 \section{Conclusion}
@@ -335,7 +341,7 @@ Yuji Matsumoto, Hideki Nakayama, and Tatsuya Harada.
 \newblock \emph{CAAI Transactions on Intelligence Technology}.
 
 \bibitem[Yeasmin(2026)]{yeasmin2026kaggle}
-Tawfiya Easmin.
+Tawfia Yeasmin.
 \newblock 2026.
 \newblock \emph{Gen Z words and Phrases Dataset}.
 \newblock \url{https://www.kaggle.com/datasets/tawfiayeasmin/gen-z-words-and-phrases-dataset}.
