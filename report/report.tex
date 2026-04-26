@@ -28,16 +28,16 @@
 \maketitle
 
 \begin{abstract}
-As LLM's become increasingly more integrated into the lives of youths,the rapid evolution of Gen Z and Gen Alpha slang has created a critical misalignment between NLP systems and their primary demographic. Current normalization models often rely on opaque "black-box" architectures that lack interpretability. We hypothesize that the semantic shift between youth slang and standard English is not arbitrary but defined by identifiable, low-dimensional directions in embedding space, which we term the "\textit{Eigenslang}." We evaluate this hypothesis using a curated dataset of 96 slang-neutral pairs, comparing mean vector difference and PCA-based against raw retrieval baselines. Our results provide only weak evidence for a single shared slang direction, with the first principal component explaining only 5\% of variance.
-An abbreviation-filtered ablation improves raw retrieval substantially, which suggests that dataset heterogeneity matters, but it still does not produce strong evidence for a single global PCA direction. We conclude that while representation choice significantly impacts performance, a single global direction is an incomplete explanation for the complex nature of slang normalization.
+As LLMs become increasingly integrated into the lives of young users, the rapid evolution of Gen Z and Gen Alpha slang has created a critical misalignment between NLP systems and their primary demographic. Current normalization models often rely on opaque ``black-box'' architectures that lack interpretability. We hypothesize that the semantic shift between youth slang and standard English is not arbitrary, but is instead partly defined by identifiable, low-dimensional directions in embedding space, which we term \emph{Eigenslang}. We evaluate this hypothesis using a curated dataset of 96 slang--neutral pairs, comparing mean-offset and PCA-based methods against raw retrieval baselines. Our results provide only weak evidence for a single shared slang direction, with the first principal component explaining only about 5\% of the variance.
+An abbreviation-filtered ablation improves raw retrieval substantially, which suggests that dataset heterogeneity matters, but it still does not produce strong evidence for a single global PCA direction. We conclude that while representation choice significantly affects performance, a single global direction is an incomplete explanation of the complex nature of slang normalization.
 \end{abstract}
 
 \section{Introduction}
-Modern NLP systems still struggle with youth slang, especially with the consistently evolving Gen Z and Gen Alpha slang prevalent on social media. Common Gen Z expressions such as \textit{mid}, \textit{cooked}, \textit{ate}, or \textit{rizz} are recent, informal, and context-dependent, so standard lexical resources and embeddings often represent them poorly. Despite strategies such as subword tozenization, contextual embeddings, and diverse training dataset, challenges remain due to the fluid and rapidly evolving nature of slang \citep{ishita-mamidi-2025-evolution}. Furthermore, existing normalization frameworks, such as Neural Machine Translation (NMT) systems, typically rely on "black-box" encoder-decoder architectures. These models lack interpretability, providing no clear insight into the semantic transformations they apply to informal text. This is detrimental for tasks such as text understanding, retrieval, sentiment analysis, and chatbot interaction. Ultimately, the inability of these systems to accurately and transparently parse slang creates a fundamental disconnect in user experience and accessibility for the demographic that uses LLMs most frequently.
+Modern NLP systems still struggle with youth slang, especially with the rapidly evolving Gen Z and Gen Alpha language prevalent on social media. Common Gen Z expressions such as \textit{mid}, \textit{cooked}, \textit{ate}, and \textit{rizz} are recent, informal, and context-dependent, so standard lexical resources and embeddings often represent them poorly. Despite strategies such as subword tokenization, contextual embeddings, and more diverse training data, challenges remain due to the fluid and rapidly evolving nature of slang \citep{ishita-mamidi-2025-evolution}. Furthermore, existing normalization frameworks, such as neural machine translation systems, typically rely on ``black-box'' encoder-decoder architectures. These models lack interpretability, providing no clear insight into the semantic transformations they apply to informal text. This is detrimental for tasks such as text understanding, retrieval, sentiment analysis, and chatbot interaction. Ultimately, the inability of these systems to accurately and transparently parse slang creates a fundamental disconnect in user experience and accessibility.
 
-In recent years, there has been significant leaps in the field of computational linguistics. Specifically, the application of eigenvector analysis has emerged as a powerful tool for uncovering latent semantic structures and providing a more robust interpretation of high dimensional word embeddings. This leads us to the main research question of our project: Does the \emph{Eigenslang} exist? That is, is there a structured transformation from a neutral phrase to its slang counterpart. We call the shared direction, if it exists, the \emph{Eigenslang}. If a slang term and a neutral paraphrase are embedded as vectors, is the difference between them partly shared across many examples? If so, that direction could represent ``slanginess'' and support a lightweight translation or normalization method.
+In recent years, there have been significant advances in computational linguistics. Specifically, the application of eigenvector analysis has emerged as a powerful tool for uncovering latent semantic structures and providing a more robust interpretation of high-dimensional word embeddings. This leads us to the main research question of our project: does the \emph{Eigenslang} exist? That is, is there a structured transformation from a neutral phrase to its slang counterpart? We call the shared direction, if it exists, the \emph{Eigenslang}. If a slang term and a neutral paraphrase are embedded as vectors, is the difference between them partly shared across many examples? If so, that direction could represent ``slanginess'' and support a lightweight translation or normalization method.
 
-Prior work such as \textit{Interpreting Word Embeddings with Eigenvector Analysis} by \citet{shin2018eigenvectors} suggests that principal directions in embedding space can reveal interpretable structure. Other work on slang extraction, slang generation, Gen Alpha translation, and youth-slang chatbots further motivates this as both a linguistic and ML problem \citep{ishita-mamidi-2025-evolution}. We also drew inspiration from the theoretical concept and framework of the \textit{"Eigenslur"}, popularized by linguistic influencers like 
+Prior work such as \textit{Interpreting Word Embeddings with Eigenvector Analysis} by \citet{shin2018eigenvectors} suggests that eigenvector-based analysis can reveal interpretable structure in embedding spaces. Other work on slang extraction, slang generation, Gen Alpha translation, and youth-slang chatbots further motivates this as both a linguistic and ML problem \citep{ishita-mamidi-2025-evolution}. We also drew inspiration from the theoretical concept and framework of the \textit{"Eigenslur"}, popularized by linguistic influencers like 
 etymologynerd.
 
 The scope of this project is intentionally focused and modest. Rather than claiming a universal solution to slang normalization, we provide a controlled empirical evaluation of whether a low-dimensional structure exists within slang-neutral offsets. By isolating these semantic directions, we aim to offer a more interpretable alternative to traditional 'black-box' machine translation methods.
@@ -56,7 +56,7 @@ First, prior work shows that slang benefits from specialized lexical resources a
 \citet{wilson2020urban} build Urban Dictionary-based embeddings for slang NLP and show that slang-specific lexical information can improve downstream behavior.
 Similarly, social-media slang extraction work argues that non-standard language behaves differently from standard lexicons and often requires specialized treatment \citep{matsumoto2019slang}.
 
-Second, our project is motivated by recent advancements in identifying interpretable directions within embedding spaces. \citet{shin2018eigenvectors} demonstrate that the eigenvectors of word-embedding spaces can uncover latent semantic structures that are otherwise obscured. More recently, \citet{shaik2026redefining} emphasize the necessity of moving beyond opaque model outputs, proposing the interpretable decomposition of language models to mitigate toxicity by identifying specific components responsible for problematic content.
+Second, our project is motivated by recent advancements in identifying interpretable structure within embedding spaces. \citet{shin2018eigenvectors} show that eigenvector-based analysis of word embeddings can uncover latent semantic organization that is otherwise difficult to inspect directly. More recently, \citet{shaik2026redefining} use eigen-decomposition to study and intervene on harmful behavior in language models, illustrating a broader interpretability trend toward identifying structured components rather than relying only on opaque end-to-end behavior.
 
 This aligns with the broader consensus in the field that meaning can be organized along approximately linear directions \citep{bojanowski2017enriching, bolukbasi2016man}.
 Our project adopts this geometric style of reasoning, extending it to the domain of slang normalization. Unlike previous work focused on removing demographic bias or solving classic analogies, we investigate whether this linear structure can be harnessed to map the shift from youth vernacular to standard English in a transparent, interpretable manner.
@@ -98,6 +98,9 @@ This distinction lets us evaluate both lexical and contextual formulations witho
 We formulate slang normalization as retrieval.
 Given a slang-side representation, the system must retrieve the correct neutral target from a candidate set.
 We report Top-1 and Top-3 retrieval accuracy.
+
+All three evaluation settings use the same underlying dataset.
+What changes across settings is not the dataset itself, but the set of candidate neutral targets presented for each test example.
 
 We report three candidate-set settings.
 In \texttt{all\_candidates}, the correct neutral target is ranked against all neutral labels in the dataset.
@@ -174,13 +177,13 @@ The scaling factor $\alpha$ is tuned on validation data.
 
 \section{Experiments}
 \subsection{Setup}
-We split the cleaned dataset into train, validation, and test sets with a deterministic 60/20/20 split. We evaluate raw retrieval, mean offset, and PCA Eigenslang under both representation modes and both embedding techniques. The evaluation is conducted by applying the computed transformation (the "candidate Eigenslang") to the neutral word embeddings within the test split. We then measure the success of this reconstruction using \textbf{Top-1} and \textbf{Top-3} retrieval accuracy:
+We split the cleaned dataset into train, validation, and test sets with a deterministic 60/20/20 split. We evaluate raw retrieval, mean offset, and PCA Eigenslang under both representation modes and both embedding techniques. At test time, the model starts from the slang-side representation and retrieves the correct neutral target from a candidate set.
 
-\textbf{Top-1 Accuracy}: The percentage of cases where the target slang term is the nearest neighbor to the transformed neutral vector in the embedding space.
+\textbf{Top-1 Accuracy}: The percentage of cases where the correct neutral target is ranked first.
 
-\textbf{Top-3 Accuracy}: The percentage of cases where the target slang term appears within the three closest neighbors.
+\textbf{Top-3 Accuracy}: The percentage of cases where the correct neutral target appears in the top three predictions.
 
-This approach allows us to quantify the degree to which a linear vector shift can accurately map neutral language to its youth-slang counterparts.
+This setup measures how well a learned offset helps move slang representations toward their intended neutral meanings.
 
 \subsection{Main Quantitative Results}
 \cref{tab:candidate-results} summarizes the sentence-transformer test-set results on the primary 96-example dataset across candidate-set settings.
@@ -252,7 +255,7 @@ Detailed qualitative examples and ablation numbers are given in the appendix.
 Our current conclusion is cautious.
 We do \emph{not} have strong evidence that a robust, universal Eigenslang direction exists.
 The direct term/paraphrase formulation performs best overall, but PCA does not improve it.
-The contextual sentence formulation only shows a small PCA gain.
+The contextual sentence formulation only shows a small PCA gain in the harshest all-candidate setting.
 
 Our contribution is a curated 96-example dataset, a comparison of two offset formulations, and a controlled test showing that representation choice and dataset composition matter more than a single shared PCA direction.
 
@@ -314,9 +317,9 @@ MLBtrio.
 \newblock \url{https://huggingface.co/datasets/MLBtrio/genz-slang-dataset}.
 Accessed 2026-04-23.
 
-\bibitem[Matsumoto et~al.(2019)Matsumoto, Nakayama, and
-Harada]{matsumoto2019slang}
-Yuji Matsumoto, Hideki Nakayama, and Tatsuya Harada.
+\bibitem[Matsumoto et~al.(2019)Matsumoto, Ren, Matsuoka, Yoshida, and
+Kita]{matsumoto2019slang}
+Kazuyuki Matsumoto, Fuji Ren, Masaya Matsuoka, Minoru Yoshida, and Kenji Kita.
 \newblock 2019.
 \newblock Slang feature extraction by analysing topic change on social media.
 \newblock \emph{CAAI Transactions on Intelligence Technology}.
@@ -335,33 +338,34 @@ Nils Reimers and Iryna Gurevych.
 \newblock In \emph{Proceedings of the 2019 Conference on Empirical Methods in
 Natural Language Processing}.
 
-\bibitem[Shin et~al.(2018)Shin, Park, and Choo]{shin2018eigenvectors}
-Joon Shin, Sungrae Park, and Jaegul Choo.
+\bibitem[Shin et~al.(2018)Shin, Madotto, and Fung]{shin2018eigenvectors}
+Jamin Shin, Andrea Madotto, and Pascale Fung.
 \newblock 2018.
-\newblock Analyzing semantic properties of word embeddings using eigenvectors.
+\newblock Interpreting word embeddings with eigenvector analysis.
 \newblock In \emph{NeurIPS Workshop on Interpretability and Robustness for
 Audio, Speech, and Language}.
 
-\bibitem[Sun et~al.(2021)Sun, Yang, and Cardie]{sun2021computational}
-Simeng Sun, Diyi Yang, and Claire Cardie.
+\bibitem[Sun et~al.(2021)Sun, Zemel, and Xu]{sun2021computational}
+Zhewei Sun, Richard Zemel, and Yang Xu.
 \newblock 2021.
 \newblock A computational framework for slang generation.
 \newblock \emph{Transactions of the Association for Computational Linguistics},
 9:371--386.
 
-\bibitem[Wilson et~al.(2020)Wilson, Schakel, O'Connor, and
-Boomgaarden]{wilson2020urban}
-Steven Wilson, Adriaan Schakel, Brendan O'Connor, and Hajo Boomgaarden.
+\bibitem[Wilson et~al.(2020)Wilson, Magdy, McGillivray, Garimella, and
+Tyson]{wilson2020urban}
+Steven Wilson, Walid Magdy, Barbara McGillivray, Kiran Garimella, and Gareth
+Tyson.
 \newblock 2020.
 \newblock Urban dictionary embeddings for slang NLP applications.
 \newblock In \emph{Proceedings of the Twelfth Language Resources and Evaluation
 Conference}, pages 1557--1564.
 
-\bibitem[Shaik et~al.(2026)Shaik, Mazhar, Srivastava, and Akhtar]{shaik2026redefining}
+\bibitem[Shaik et~al.(2025)Shaik, Mazhar, Srivastava, and Akhtar]{shaik2026redefining}
 Zuhair~Hasan Shaik, Abdullah Mazhar, Aseem Srivastava, and Md~Shad Akhtar.
-\newblock 2026.
+\newblock 2025.
 \newblock Redefining experts: Interpretable decomposition of language models for toxicity mitigation.
-\newblock In \emph{The Thirty-ninth Annual Conference on Neural Information Processing Systems}.
+\newblock In \emph{Thirty-ninth Conference on Neural Information Processing Systems (NeurIPS 2025), poster}.
 \newblock \url{https://openreview.net/forum?id=1wmP48quNb}
 
 \bibitem[Ishita and Mamidi(2025)]{ishita-mamidi-2025-evolution}
